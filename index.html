@@ -126,6 +126,13 @@ section{padding:6rem 6vw;position:relative}
 .card .links a:hover{text-decoration:underline}
 .stars{color:var(--muted);font-size:.8rem}
 
+/* repo scroll container */
+.repo-scroll-wrapper{max-height:580px;overflow-y:auto;overflow-x:hidden;padding:8px 14px 16px 4px;margin-right:-10px;scrollbar-width:thin;scrollbar-color:var(--c1) rgba(255,255,255,.05)}
+.repo-scroll-wrapper::-webkit-scrollbar{width:6px}
+.repo-scroll-wrapper::-webkit-scrollbar-track{background:rgba(255,255,255,.03);border-radius:99px}
+.repo-scroll-wrapper::-webkit-scrollbar-thumb{background:linear-gradient(180deg,var(--c1),var(--c2));border-radius:99px}
+.repo-scroll-wrapper::-webkit-scrollbar-thumb:hover{background:var(--c1)}
+
 /* skills */
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem}
 .skill{padding:1.8rem;transition:.3s}
@@ -285,9 +292,18 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
 <!-- OPEN SOURCE -->
 <section id="opensource">
   <div class="wrap">
-    <div class="eyebrow reveal">// live from github</div>
-    <h2 class="title reveal">Open-Source Projects</h2>
-    <div class="grid" id="repoGrid"><p style="color:var(--muted)">Loading repositories…</p></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+      <div>
+        <div class="eyebrow reveal">// live from github</div>
+        <h2 class="title reveal" style="margin-bottom:0">Open-Source Projects</h2>
+      </div>
+      <div id="repoCount" style="color:var(--muted);font-family:'JetBrains Mono';font-size:0.85rem;" class="reveal">
+        <i class="fab fa-github"></i> <span id="repoTotal">Loading repos...</span>
+      </div>
+    </div>
+    <div class="repo-scroll-wrapper">
+      <div class="grid" id="repoGrid"><p style="color:var(--muted)">Loading repositories…</p></div>
+    </div>
   </div>
 </section>
 
@@ -382,11 +398,17 @@ function renderRepos(list){
 }
 async function loadRepos(){
   try{
-    const res=await fetch('https://api.github.com/users/kiran10299/repos?sort=updated&per_page=30');
+    const res=await fetch('https://api.github.com/users/kiran10299/repos?sort=updated&per_page=100');
     if(!res.ok) throw 0;
-    const data=(await res.json()).filter(r=>!r.fork&&r.name!=='kiran10299'&&r.name!=='kiran10299.github.io').slice(0,6);
+    const data=(await res.json()).filter(r=>!r.fork&&r.name!=='kiran10299');
+    const countEl=document.getElementById('repoTotal');
+    if(countEl) countEl.innerHTML=`<b>${data.length}</b> repositories &middot; Scroll to explore`;
     renderRepos(data.length?data:fallbackRepos);
-  }catch(e){renderRepos(fallbackRepos)}
+  }catch(e){
+    const countEl=document.getElementById('repoTotal');
+    if(countEl) countEl.innerHTML=`<b>${fallbackRepos.length}</b> repositories`;
+    renderRepos(fallbackRepos);
+  }
 }
 
 /* ---------- typing effect ---------- */
