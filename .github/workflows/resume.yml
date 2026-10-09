@@ -22,10 +22,11 @@ jobs:
       - name: Print resume.html to PDF
         run: |
           google-chrome --headless=new --disable-gpu --no-sandbox --no-pdf-header-footer \
-            --virtual-time-budget=10000 --print-to-pdf=resume.pdf "file://$PWD/resume.html"
+            --virtual-time-budget=10000 --print-to-pdf=KIRAN_SHIVAKUMAR_RESUME.pdf "file://$PWD/resume.html"
+          cp KIRAN_SHIVAKUMAR_RESUME.pdf resume.pdf
       - name: Commit if changed
         run: |
           git config user.name "resume-bot"
           git config user.email "actions@github.com"
-          git add resume.pdf
+          git add KIRAN_SHIVAKUMAR_RESUME.pdf resume.pdf
           git diff --cached --quiet || (git commit -m "chore: refresh resume.pdf" && git push)
