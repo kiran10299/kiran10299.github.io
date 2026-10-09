@@ -105,10 +105,10 @@ li::marker{color:#7c3aed}
 
   <main>
     <h2>Profile</h2>
-    <p class="summary">Application Engineer with <b>4.7+ years</b> of experience designing, developing and deploying <b>LabVIEW-based test &amp; measurement systems</b> for aerospace, nuclear, space, power and consumer electronics clients. Hands-on with instrument automation, multi-sensor data acquisition and industrial protocols, and uses <b>Python, ROS and computer vision</b> for robotics and intelligent monitoring. Looking to bring this LabVIEW experience to innovative projects.</p>
+    <p class="summary">Application Engineer with <b><span class="yrs">5+</span> years</b> of experience designing, developing and deploying <b>LabVIEW-based test &amp; measurement systems</b> for aerospace, nuclear, space, power and consumer electronics clients. Hands-on with instrument automation, multi-sensor data acquisition and industrial protocols, and uses <b>Python, ROS and computer vision</b> for robotics and intelligent monitoring. Looking to bring this LabVIEW experience to innovative projects.</p>
 
     <div class="hl">
-      <div><b>4.7+</b><small>Years Experience</small></div>
+      <div><b class="yrs">5+</b><small>Years Experience</small></div>
       <div><b>7+</b><small>Client Projects</small></div>
       <div><b>15+</b><small>Instruments</small></div>
       <div><b>11</b><small>Protocols</small></div>
@@ -202,5 +202,6 @@ li::marker{color:#7c3aed}
     </div>
   </main>
 </div>
+<script>/* auto years since Sep 2021 */(function(){var s=new Date(2021,8,1),n=new Date(),y=Math.floor((n-s)/(365.25*864e5));document.querySelectorAll(".yrs").forEach(function(e){e.textContent=y+"+"});document.querySelectorAll("[data-yrs]").forEach(function(e){e.dataset.count=y})})();</script>
 </body>
 </html>

@@ -210,7 +210,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
 <!-- STATS -->
 <section style="padding-top:0">
   <div class="wrap stats">
-    <div class="stat glass reveal"><div class="num grad" data-count="4.7" data-dec="1">0</div><div class="lbl">Years Experience</div></div>
+    <div class="stat glass reveal"><div class="num grad" data-yrs data-count="5" data-suffix="+">0</div><div class="lbl">Years Experience</div></div>
     <div class="stat glass reveal"><div class="num grad" data-count="7" data-suffix="+">0</div><div class="lbl">Industrial Projects Delivered</div></div>
     <div class="stat glass reveal"><div class="num grad" data-count="15" data-suffix="+">0</div><div class="lbl">Instruments Integrated</div></div>
     <div class="stat glass reveal"><div class="num grad" data-count="11">0</div><div class="lbl">Communication Protocols</div></div>
@@ -224,7 +224,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
     <h2 class="title reveal">From hardware signals to intelligent software</h2>
     <div class="about">
       <div class="reveal">
-        <p>I'm a <strong>Mechatronics engineer</strong> with <strong>4.7+ years</strong> of experience designing, developing and deploying LabVIEW-based solutions. I've delivered automated test systems for organisations such as <strong>ISRO (SAC), NPCIL, Tata Power and LG India</strong>.</p>
+        <p>I'm a <strong>Mechatronics engineer</strong> with <strong><span class="yrs">5+</span> years</strong> of experience designing, developing and deploying LabVIEW-based solutions. I've delivered automated test systems for organisations such as <strong>ISRO (SAC), NPCIL, Tata Power and LG India</strong>.</p>
         <p>At <strong>Ducom Aerospace</strong> I build tribology test &amp; measurement software that captures force, temperature, humidity, vibration and acoustic emission data. I also work on computer vision pipelines for human tracking and on ROS-based robotic mapping.</p>
         <p>I like problems where real hardware meets software: controlling instruments over SCPI/GPIB, streaming sensor data over Modbus/CAN, and adding AI on top.</p>
       </div>
@@ -334,6 +334,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
 
 <footer>Designed &amp; built by Kiran Shivakumar · © <span id="yr"></span></footer>
 
+<script>/* auto years since Sep 2021 */(function(){var s=new Date(2021,8,1),n=new Date(),y=Math.floor((n-s)/(365.25*864e5));document.querySelectorAll(".yrs").forEach(function(e){e.textContent=y+"+"});document.querySelectorAll("[data-yrs]").forEach(function(e){e.dataset.count=y})})();</script>
 <script>
 /* ---------- data from resume ---------- */
 const clientProjects=[
