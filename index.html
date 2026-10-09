@@ -1,149 +1,446 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kiran Shivakumar | Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --bg: #0f172a;
-            --surface: #1e293b;
-            --primary: #38bdf8;
-            --text: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
-        a { color: var(--primary); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        
-        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
-        
-        header { text-align: center; padding: 4rem 0; border-bottom: 1px solid var(--surface); }
-        h1 { font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: -1px; }
-        h2 { font-size: 1.25rem; color: var(--text-muted); font-weight: 300; margin-bottom: 1.5rem; }
-        .social-links a { font-size: 1.5rem; margin: 0 10px; color: var(--text-muted); transition: 0.3s; }
-        .social-links a:hover { color: var(--primary); }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kiran Shivakumar | LabVIEW & Robotics Engineer</title>
+<meta name="description" content="Kiran Shivakumar - Application Engineer specialising in LabVIEW Test & Measurement, Robotics (ROS) and Computer Vision. Bengaluru, India.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root{
+  --bg:#070b16; --bg2:#0c1222; --glass:rgba(255,255,255,.04); --border:rgba(255,255,255,.08);
+  --text:#e8edf7; --muted:#8b97b0; --c1:#22d3ee; --c2:#a78bfa; --c3:#f472b6;
+  --grad:linear-gradient(120deg,var(--c1),var(--c2) 55%,var(--c3));
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--c2);color:#fff}
+#net{position:fixed;inset:0;z-index:-2}
+.blob{position:fixed;width:520px;height:520px;border-radius:50%;filter:blur(120px);opacity:.18;z-index:-1;animation:float 18s ease-in-out infinite}
+.blob.b1{background:var(--c1);top:-150px;left:-150px}
+.blob.b2{background:var(--c2);bottom:-200px;right:-150px;animation-delay:-9s}
+@keyframes float{50%{transform:translate(80px,60px) scale(1.1)}}
 
-        section { padding: 4rem 0; border-bottom: 1px solid var(--surface); }
-        .section-title { font-size: 1.8rem; margin-bottom: 2rem; color: var(--primary); }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .card { background: var(--surface); padding: 1.5rem; border-radius: 12px; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
-        .tags span { display: inline-block; background: #334155; color: #cbd5e1; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 99px; margin: 0 0.2rem 0.2rem 0; }
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:1rem 6vw;transition:.3s}
+nav.scrolled{background:rgba(7,11,22,.75);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
+.logo{font-family:'Space Grotesk';font-weight:700;font-size:1.35rem}
+.logo span{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+nav ul{display:flex;gap:2rem;list-style:none}
+nav ul a{font-size:.9rem;color:var(--muted);transition:.2s;position:relative}
+nav ul a:hover{color:var(--text)}
+nav ul a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--grad);transition:.3s}
+nav ul a:hover::after{width:100%}
+.menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.4rem;cursor:pointer}
 
-        .timeline-item { margin-bottom: 2rem; padding-left: 1.5rem; border-left: 2px solid var(--primary); }
-        .timeline-date { font-size: 0.85rem; color: var(--primary); font-weight: bold; }
-        .timeline-title { font-size: 1.2rem; font-weight: 500; margin: 0.3rem 0; }
-        .timeline-company { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:0 6vw}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border:1px solid var(--border);border-radius:99px;background:var(--glass);font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 #22c55e;animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
+.hero h1{font-family:'Space Grotesk';font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.05;letter-spacing:-2px}
+.grad{background:var(--grad);background-size:200% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 6s linear infinite}
+@keyframes shine{to{background-position:200% center}}
+.typed{font-family:'JetBrains Mono';font-size:clamp(1rem,2vw,1.3rem);color:var(--c1);margin:1.2rem 0 1.4rem;min-height:1.8em}
+.typed::after{content:'▌';animation:blink 1s step-end infinite;color:var(--c2)}
+@keyframes blink{50%{opacity:0}}
+.hero p.lead{color:var(--muted);max-width:560px;font-size:1.05rem}
+.cta{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.6rem;border-radius:12px;font-weight:600;font-size:.95rem;transition:.25s}
+.btn-primary{background:var(--grad);color:#0a0e1a;box-shadow:0 10px 30px -10px rgba(167,139,250,.6)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px -10px rgba(167,139,250,.8)}
+.btn-ghost{border:1px solid var(--border);background:var(--glass)}
+.btn-ghost:hover{border-color:var(--c1);color:var(--c1)}
+.socials{display:flex;gap:1rem;margin-top:2rem}
+.socials a{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;border:1px solid var(--border);background:var(--glass);color:var(--muted);transition:.25s}
+.socials a:hover{color:var(--c1);border-color:var(--c1);transform:translateY(-3px)}
 
-        footer { text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: 0.9rem; }
-    </style>
+/* hero visual: orbit */
+.orbit{position:relative;width:340px;height:340px;margin:auto}
+.orbit .core{position:absolute;inset:90px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#1e293b,#0b1020);border:1px solid var(--border);display:grid;place-items:center;font-family:'Space Grotesk';font-size:3rem;font-weight:700;box-shadow:0 0 80px -10px rgba(34,211,238,.35)}
+.orbit .ring{position:absolute;inset:0;border:1px dashed rgba(255,255,255,.12);border-radius:50%;animation:spin 30s linear infinite}
+.orbit .ring.r2{inset:40px;animation-duration:20s;animation-direction:reverse}
+.orbit .chip{position:absolute;padding:.45rem .8rem;border-radius:10px;background:rgba(12,18,34,.9);border:1px solid var(--border);font-size:.78rem;font-family:'JetBrains Mono';white-space:nowrap;animation:spin 30s linear infinite reverse}
+.orbit .r2 .chip{animation:spin 20s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* SECTIONS */
+section{padding:6rem 6vw;position:relative}
+.wrap{max-width:1100px;margin:0 auto}
+.eyebrow{font-family:'JetBrains Mono';color:var(--c1);font-size:.85rem;letter-spacing:2px;text-transform:uppercase}
+.title{font-family:'Space Grotesk';font-size:clamp(2rem,4vw,2.8rem);margin:.4rem 0 3rem;letter-spacing:-1px}
+.glass{background:var(--glass);border:1px solid var(--border);border-radius:20px;backdrop-filter:blur(10px)}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:-3rem}
+.stat{padding:1.8rem;text-align:center;transition:.3s}
+.stat:hover{transform:translateY(-6px);border-color:rgba(34,211,238,.4)}
+.stat .num{font-family:'Space Grotesk';font-size:2.6rem;font-weight:700}
+.stat .lbl{color:var(--muted);font-size:.88rem}
+
+/* about */
+.about{display:grid;grid-template-columns:1.3fr 1fr;gap:2.5rem}
+.about p{color:var(--muted);margin-bottom:1rem;font-size:1.02rem}
+.about strong{color:var(--text)}
+.focus{padding:1.8rem}
+.focus li{list-style:none;display:flex;gap:.9rem;align-items:flex-start;padding:.8rem 0;border-bottom:1px solid var(--border)}
+.focus li:last-child{border:0}
+.focus i{font-size:1.1rem;margin-top:.25rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.focus b{display:block;font-size:.95rem}
+.focus small{color:var(--muted)}
+
+/* timeline */
+.timeline{position:relative;padding-left:2.5rem}
+.timeline::before{content:'';position:absolute;left:9px;top:0;bottom:0;width:2px;background:linear-gradient(var(--c1),var(--c2),transparent)}
+.tl{position:relative;margin-bottom:2.5rem;padding:2rem}
+.tl::before{content:'';position:absolute;left:-2.5rem;top:2.2rem;width:20px;height:20px;border-radius:50%;background:var(--bg);border:3px solid var(--c1);box-shadow:0 0 20px var(--c1)}
+.tl-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;margin-bottom:.8rem}
+.tl h3{font-family:'Space Grotesk';font-size:1.35rem}
+.tl .co{color:var(--c2);font-weight:500}
+.tl .date{font-family:'JetBrains Mono';font-size:.8rem;color:var(--c1);padding:.3rem .8rem;border:1px solid rgba(34,211,238,.3);border-radius:99px;height:fit-content}
+.tl ul{margin-left:1.1rem;color:var(--muted)}
+.tl li{margin:.35rem 0}
+.tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1rem}
+.tag{font-family:'JetBrains Mono';font-size:.72rem;padding:.28rem .7rem;border-radius:8px;background:rgba(34,211,238,.08);color:#9be7f5;border:1px solid rgba(34,211,238,.18)}
+.tag.v{background:rgba(167,139,250,.08);color:#cdbdfd;border-color:rgba(167,139,250,.2)}
+
+/* client projects */
+.filters{display:flex;gap:.6rem;flex-wrap:wrap;margin:-1.5rem 0 2rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.4rem}
+.card{padding:1.8rem;position:relative;overflow:hidden;transition:transform .35s,border-color .35s;display:flex;flex-direction:column}
+.card::before{content:'';position:absolute;inset:0;border-radius:20px;padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.35s}
+.card:hover{transform:translateY(-8px)}
+.card:hover::before{opacity:1}
+.card .glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(var(--c2),transparent 70%);opacity:0;transition:opacity .3s;pointer-events:none;transform:translate(-50%,-50%)}
+.card:hover .glow{opacity:.15}
+.client{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--c1);margin-bottom:.8rem}
+.card h3{font-family:'Space Grotesk';font-size:1.2rem;margin-bottom:.6rem}
+.card p{color:var(--muted);font-size:.92rem;flex:1}
+.card .icon{position:absolute;top:1.5rem;right:1.5rem;font-size:1.6rem;opacity:.15}
+.card .links{margin-top:1rem;display:flex;gap:1rem;font-size:.85rem;color:var(--c1)}
+.card .links a:hover{text-decoration:underline}
+.stars{color:var(--muted);font-size:.8rem}
+
+/* skills */
+.skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem}
+.skill{padding:1.8rem;transition:.3s}
+.skill:hover{transform:translateY(-5px);border-color:rgba(167,139,250,.4)}
+.skill .ic{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--grad);color:#0a0e1a;font-size:1.2rem;margin-bottom:1rem}
+.skill h4{font-family:'Space Grotesk';font-size:1.1rem;margin-bottom:.4rem}
+
+/* edu + contact */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.edu{padding:2rem;display:flex;gap:1.4rem;align-items:center}
+.edu .ic{font-size:2.2rem;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.contact{text-align:center;padding:4rem 2rem}
+.contact h2{font-family:'Space Grotesk';font-size:clamp(2rem,4vw,3rem);letter-spacing:-1px;margin-bottom:1rem}
+.contact p{color:var(--muted);max-width:520px;margin:0 auto 2rem}
+footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.reveal.show{opacity:1;transform:none}
+
+@media(max-width:900px){
+  .hero-inner,.about,.two{grid-template-columns:1fr}
+  .orbit{display:none}
+  .stats{grid-template-columns:repeat(2,1fr);margin-top:0}
+  nav ul{position:fixed;top:64px;right:0;left:0;flex-direction:column;gap:0;background:rgba(7,11,22,.97);display:none;padding:1rem 6vw}
+  nav ul.open{display:flex}
+  nav ul li{padding:.8rem 0;border-bottom:1px solid var(--border)}
+  .menu-btn{display:block}
+}
+</style>
 </head>
 <body>
+<canvas id="net"></canvas>
+<div class="blob b1"></div><div class="blob b2"></div>
 
-<div class="container">
-    <header>
-        <h1>Kiran Shivakumar</h1>
-        <h2>Application Engineer | LabVIEW Expert | Robotics & Computer Vision Enthusiast</h2>
-        <div class="social-links">
-            <a href="https://github.com/kiran10299" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://l1nk.dev/lS2L8" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:kiran10299@gmail.com"><i class="fas fa-envelope"></i></a>
+<nav id="nav">
+  <a href="#" class="logo">KS<span>.</span></a>
+  <ul id="menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="menu-btn" id="menuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="badge"><span class="dot"></span> Open to new opportunities · Bengaluru, India</div>
+      <h1>Hi, I'm <span class="grad">Kiran<br>Shivakumar</span></h1>
+      <div class="typed" id="typed"></div>
+      <p class="lead">Application Engineer building <strong>LabVIEW test &amp; measurement systems</strong> for aerospace, nuclear, power and space clients, and bringing in <strong>Python, ROS and computer vision</strong> on top of them.</p>
+      <div class="cta">
+        <a href="#projects" class="btn btn-primary"><i class="fas fa-rocket"></i> View My Work</a>
+        <a href="resume.pdf" class="btn btn-ghost" download><i class="fas fa-file-arrow-down"></i> Download Resume</a>
+      </div>
+      <div class="socials">
+        <a href="https://github.com/kiran10299" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://l1nk.dev/lS2L8" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="mailto:kiran10299@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div class="orbit">
+      <div class="ring">
+        <span class="chip" style="top:-14px;left:50%;transform:translateX(-50%)">LabVIEW</span>
+        <span class="chip" style="bottom:-14px;left:50%;transform:translateX(-50%)">ROS</span>
+        <span class="chip" style="top:50%;left:-30px">OpenCV</span>
+        <span class="chip" style="top:50%;right:-30px">Python</span>
+      </div>
+      <div class="ring r2">
+        <span class="chip" style="top:10%;left:5%">YOLO</span>
+        <span class="chip" style="bottom:10%;right:0">DAQ</span>
+      </div>
+      <div class="core"><span class="grad">KS</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- STATS -->
+<section style="padding-top:0">
+  <div class="wrap stats">
+    <div class="stat glass reveal"><div class="num grad" data-count="4.7" data-dec="1">0</div><div class="lbl">Years Experience</div></div>
+    <div class="stat glass reveal"><div class="num grad" data-count="7" data-suffix="+">0</div><div class="lbl">Industrial Projects Delivered</div></div>
+    <div class="stat glass reveal"><div class="num grad" data-count="15" data-suffix="+">0</div><div class="lbl">Instruments Integrated</div></div>
+    <div class="stat glass reveal"><div class="num grad" data-count="11">0</div><div class="lbl">Communication Protocols</div></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="eyebrow reveal">// about me</div>
+    <h2 class="title reveal">From hardware signals to intelligent software</h2>
+    <div class="about">
+      <div class="reveal">
+        <p>I'm a <strong>Mechatronics engineer</strong> with <strong>4.7+ years</strong> of experience designing, developing and deploying LabVIEW-based solutions. I've delivered automated test systems for organisations such as <strong>ISRO (SAC), NPCIL, Tata Power and LG India</strong>.</p>
+        <p>At <strong>Ducom Aerospace</strong> I build tribology test &amp; measurement software that captures force, temperature, humidity, vibration and acoustic emission data. I also work on computer vision pipelines for human tracking and on ROS-based robotic mapping.</p>
+        <p>I like problems where real hardware meets software: controlling instruments over SCPI/GPIB, streaming sensor data over Modbus/CAN, and adding AI on top.</p>
+      </div>
+      <ul class="focus glass reveal">
+        <li><i class="fas fa-gauge-high"></i><div><b>Test &amp; Measurement</b><small>LabVIEW, ATE, DAQ, instrument control</small></div></li>
+        <li><i class="fas fa-robot"></i><div><b>Robotics</b><small>ROS, Gazebo, RViz, SLAM</small></div></li>
+        <li><i class="fas fa-eye"></i><div><b>Computer Vision</b><small>OpenCV, YOLO, MediaPipe, DeepSORT</small></div></li>
+        <li><i class="fas fa-network-wired"></i><div><b>Industrial Comms</b><small>Modbus, CAN, RS-485, HART, TCP/IP</small></div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="wrap">
+    <div class="eyebrow reveal">// career</div>
+    <h2 class="title reveal">Work Experience</h2>
+    <div class="timeline">
+      <div class="tl glass reveal">
+        <div class="tl-head">
+          <div><h3>Application Engineer</h3><div class="co">Ducom Aerospace Pvt Ltd · Bengaluru</div></div>
+          <span class="date">Feb 2024 – Present</span>
         </div>
-    </header>
-
-    <section id="about">
-        <h2 class="section-title"><i class="fas fa-user"></i> About Me</h2>
-        <p>I am a dedicated Application Engineer and Mechatronics graduate with 4.7 years of experience designing, developing, and implementing robust software solutions. I specialize in <strong>Test & Measurement systems, Robotics, and Computer Vision</strong>. I bridge the gap between high-speed hardware data acquisition (LabVIEW) and modern Machine Learning algorithms (Python/ROS).</p>
-    </section>
-
-    <section id="projects">
-        <h2 class="section-title"><i class="fas fa-code"></i> Featured Projects</h2>
-        <div class="grid" id="github-projects">
-            <!-- Projects will be injected here automatically by JavaScript -->
-            <p style="color: var(--text-muted);">Loading live projects from GitHub...</p>
+        <ul>
+          <li>Develop LabVIEW-based test &amp; measurement software for <b>tribology</b> testing systems.</li>
+          <li>Acquire and process data from force, temperature, humidity, vibration and acoustic emission sensors.</li>
+          <li>Build computer vision pipelines for image annotation, segmentation, facial detection and landmarks to <b>track human movement for surveillance</b>.</li>
+          <li>Develop robot movement mapping and live video visualisation for a land robotic platform.</li>
+        </ul>
+        <div class="tags"><span class="tag">LabVIEW</span><span class="tag">Python</span><span class="tag v">OpenCV</span><span class="tag v">TensorFlow</span><span class="tag v">MediaPipe</span><span class="tag v">YOLO v5/v8/v11/26</span><span class="tag v">DeepSORT</span><span class="tag">ROS</span><span class="tag">Gazebo</span><span class="tag">RViz</span><span class="tag">SLAM</span></div>
+      </div>
+      <div class="tl glass reveal">
+        <div class="tl-head">
+          <div><h3>LabVIEW Developer</h3><div class="co">Access Automation Pvt Ltd · Bengaluru</div></div>
+          <span class="date">Sep 2021 – Jan 2024</span>
         </div>
-    </section>
+        <ul>
+          <li>Designed and delivered <b>7+ end-to-end automated test &amp; DAQ systems</b> for clients across nuclear, space, power, telecom and consumer electronics.</li>
+          <li>Integrated instruments from Keysight, Yokogawa, HIOKI, Anritsu, EXFO and Advantech, plus Mitsubishi FX5U PLCs.</li>
+          <li>Suggested improvements that made the delivered systems run better and fed into new product features.</li>
+        </ul>
+        <div class="tags"><span class="tag">LabVIEW</span><span class="tag">ATE</span><span class="tag">SCPI</span><span class="tag">GPIB</span><span class="tag">Modbus</span><span class="tag">PLC</span><span class="tag">Report Generation</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <section id="experience">
-        <h2 class="section-title"><i class="fas fa-briefcase"></i> Work Experience</h2>
-        
-        <div class="timeline-item">
-            <div class="timeline-date">Feb 2024 - Present</div>
-            <div class="timeline-title">Application Engineer</div>
-            <div class="timeline-company">Ducom Aerospace Pvt Ltd | Bengaluru, India</div>
-            <p>Developed LabVIEW software for Test and Measurement related to Tribology. Captured data from force, temperature, humidity, and vibration sensors. Built Computer Vision pipelines using OpenCV, TensorFlow, and YOLO for human movement tracking. Developed robotic mapping and live video visualization using ROS, Gazebo, and SLAM.</p>
-        </div>
+<!-- INDUSTRIAL PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow reveal">// delivered for clients</div>
+    <h2 class="title reveal">Industrial Projects</h2>
+    <div class="grid" id="clientGrid"></div>
+  </div>
+</section>
 
-        <div class="timeline-item">
-            <div class="timeline-date">Sep 2021 - Jan 2024</div>
-            <div class="timeline-title">LabVIEW Developer</div>
-            <div class="timeline-company">Access Automation Pvt Ltd | Bengaluru, India</div>
-            <p>Developed mission-critical software solutions for top-tier clients including ISRO, Tata Power, LG India, and NPCIL. Built Automated Test Equipment (ATE) for frequency response, Transformer Testing Benches using Power Analyzers (WT500), and Cell Voltage Monitoring Systems acquiring data over complex networks.</p>
-        </div>
-    </section>
+<!-- OPEN SOURCE -->
+<section id="opensource">
+  <div class="wrap">
+    <div class="eyebrow reveal">// live from github</div>
+    <h2 class="title reveal">Open-Source Projects</h2>
+    <div class="grid" id="repoGrid"><p style="color:var(--muted)">Loading repositories…</p></div>
+  </div>
+</section>
 
-    <section id="skills">
-        <h2 class="section-title"><i class="fas fa-tools"></i> Skills & Technologies</h2>
-        <div class="tags">
-            <span>LabVIEW</span><span>Python</span><span>C/C++</span><span>ROS</span><span>Gazebo</span><span>OpenCV</span><span>TensorFlow</span><span>YOLO</span><span>MediaPipe</span><span>DeepSORT</span><span>RS-485</span><span>TCP/IP</span><span>Modbus</span><span>CAN Bus</span><span>SCPI</span><span>HART</span><span>GPIB</span><span>Hardware DAQ</span>
-        </div>
-    </section>
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow reveal">// toolkit</div>
+    <h2 class="title reveal">Skills &amp; Technologies</h2>
+    <div class="skills">
+      <div class="skill glass reveal"><div class="ic"><i class="fas fa-code"></i></div><h4>Programming</h4><div class="tags"><span class="tag">LabVIEW</span><span class="tag">Python</span><span class="tag">ROS</span></div></div>
+      <div class="skill glass reveal"><div class="ic"><i class="fas fa-brain"></i></div><h4>Computer Vision &amp; AI</h4><div class="tags"><span class="tag v">OpenCV</span><span class="tag v">TensorFlow</span><span class="tag v">MediaPipe</span><span class="tag v">YOLO</span><span class="tag v">DeepSORT</span></div></div>
+      <div class="skill glass reveal"><div class="ic"><i class="fas fa-robot"></i></div><h4>Robotics</h4><div class="tags"><span class="tag">ROS</span><span class="tag">Gazebo</span><span class="tag">RViz</span><span class="tag">SLAM</span></div></div>
+      <div class="skill glass reveal"><div class="ic"><i class="fas fa-plug"></i></div><h4>Communication Interfaces</h4><div class="tags"><span class="tag">RS-485</span><span class="tag">RS-232</span><span class="tag">Modbus</span><span class="tag">CAN Bus</span><span class="tag">HART</span><span class="tag">TCP/IP</span><span class="tag">GPIB</span><span class="tag">SCPI</span><span class="tag">Telnet</span><span class="tag">FTP</span><span class="tag">USB</span></div></div>
+      <div class="skill glass reveal"><div class="ic"><i class="fas fa-wave-square"></i></div><h4>Instruments</h4><div class="tags"><span class="tag v">Keysight PNA-X / MXG / DSO</span><span class="tag v">Yokogawa WT500 / GM10</span><span class="tag v">HIOKI PW3335</span><span class="tag v">Anritsu MT9085</span><span class="tag v">EXFO FTB-500</span><span class="tag v">Advantech ADAM</span><span class="tag v">Mitsubishi FX5U PLC</span></div></div>
+      <div class="skill glass reveal"><div class="ic"><i class="fas fa-desktop"></i></div><h4>Platforms &amp; Languages</h4><div class="tags"><span class="tag">Windows</span><span class="tag">Linux</span></div><div class="tags"><span class="tag v">English</span><span class="tag v">Hindi</span><span class="tag v">Kannada</span><span class="tag v">Tamil</span></div></div>
+    </div>
+  </div>
+</section>
 
-    <footer>
-        <p>&copy; 2026 Kiran Shivakumar. Built with code.</p>
-    </footer>
-</div>
+<!-- EDUCATION + CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="two">
+      <div class="edu glass reveal">
+        <i class="fas fa-graduation-cap ic"></i>
+        <div><div class="eyebrow">Education · 2017 – 2021</div><h3 style="font-family:'Space Grotesk';font-size:1.3rem">B.E. Mechatronics</h3><div style="color:var(--muted)">The Oxford College of Engineering, Bengaluru · <b style="color:var(--text)">CGPA 8.1</b></div></div>
+      </div>
+      <div class="edu glass reveal">
+        <i class="fas fa-location-dot ic"></i>
+        <div><div class="eyebrow">Based in</div><h3 style="font-family:'Space Grotesk';font-size:1.3rem">Bengaluru, India</h3><div style="color:var(--muted)">Open to on-site, hybrid and remote roles</div></div>
+      </div>
+    </div>
+    <div class="contact glass reveal" style="margin-top:1.4rem">
+      <div class="eyebrow">// what's next</div>
+      <h2>Let's build something <span class="grad">together</span></h2>
+      <p>Looking for a LabVIEW, test automation or robotics engineer? My inbox is open.</p>
+      <div class="cta" style="justify-content:center">
+        <a href="mailto:kiran10299@gmail.com" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Say Hello</a>
+        <a href="https://l1nk.dev/lS2L8" target="_blank" class="btn btn-ghost"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Designed &amp; built by Kiran Shivakumar · © <span id="yr"></span></footer>
 
 <script>
-    // Automatically fetch latest GitHub repositories
-    async function fetchGitHubProjects() {
-        try {
-            const response = await fetch('https://api.github.com/users/kiran10299/repos?sort=updated&per_page=10');
-            const repos = await response.json();
-            
-            const projectsContainer = document.getElementById('github-projects');
-            projectsContainer.innerHTML = ''; // Clear loading text
-            
-            // Filter out forks, the profile readme, and the website itself, get top 6
-            const validRepos = repos.filter(repo => !repo.fork && repo.name !== 'kiran10299' && repo.name !== 'kiran10299.github.io').slice(0, 6);
-            
-            validRepos.forEach(repo => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                
-                // Format description
-                const desc = repo.description || 'No description provided.';
-                
-                // Format topics
-                let topicsHtml = '';
-                if (repo.topics && repo.topics.length > 0) {
-                    topicsHtml = '<div class="tags">' + repo.topics.map(t => `<span>${t}</span>`).join('') + '</div>';
-                } else if (repo.language) {
-                    topicsHtml = `<div class="tags"><span>${repo.language}</span></div>`;
-                }
-                
-                card.innerHTML = `
-                    <h3><a href="${repo.html_url}" target="_blank">${repo.name.replace(/-/g, ' ')}</a></h3>
-                    <p>${desc}</p>
-                    ${topicsHtml}
-                `;
-                projectsContainer.appendChild(card);
-            });
-        } catch (error) {
-            console.error('Error fetching GitHub repos:', error);
-            document.getElementById('github-projects').innerHTML = '<p>Could not load projects at this time.</p>';
-        }
-    }
-    
-    fetchGitHubProjects();
-</script>
+/* ---------- data from resume ---------- */
+const clientProjects=[
+ {client:"SAC · ISRO",icon:"fa-satellite-dish",title:"Antenna Testing DAQ & Reporting",desc:"Configures antennas by frequency, bandwidth and measurement specs, drives DUT/feed positioners and measures radiation patterns.",hw:["PNA-X N5264B","MXG N5183B","Spectrum Analyzer E4446A","Power Meter","Positioners"]},
+ {client:"NPCIL · Kakrapar APP",icon:"fa-shield-halved",title:"Perimeter Automated Detection System",desc:"Monitors and acknowledges alarms from microwave detectors and PIR sensors around a nuclear power plant perimeter.",hw:["Advantech ADAM-4050","Advantech ADAM-4060"]},
+ {client:"Tata Power",icon:"fa-bolt",title:"Transformer Testing Bench & Software",desc:"Automated test bench covering no-load, full-load, temperature rise, vector group, DVDF, HV, turns ratio, winding and insulation resistance tests.",hw:["Yokogawa WT500","Motwani XTRM-3A","Motwani XWRM-25A","5 kV IR Tester","FX5U PLC"]},
+ {client:"LG India",icon:"fa-plug-circle-bolt",title:"Power Consumption Test Automation",desc:"Automates monitoring, recording and display of test parameters from power analyzers, proximity sensors and PLC, with automatic report generation.",hw:["HIOKI PW3335","FX5U PLC","Proximity Sensor"]},
+ {client:"GACL India",icon:"fa-car-battery",title:"Cell Voltage Monitoring System",desc:"Networked DAQ interfacing 19 Yokogawa GM10 units for continuous remote acquisition and monitoring of cell voltages.",hw:["Yokogawa GM10 × 19","TCP/IP"]},
+ {client:"Electrohms India",icon:"fa-wave-square",title:"ATE for Frequency Response",desc:"Controls an AWG and oscilloscope to generate optimal input signals, measure RMS values and compute frequency response in dB (20·log Gain).",hw:["Keysight 33210A","Keysight DSO-X 2012A"]},
+ {client:"Oman Fiber Optics",icon:"fa-circle-nodes",title:"ConnectOTDR",desc:"Optical fibre test software that measures wavelength, resolution, pulse width and distance across multiple OTDR platforms.",hw:["EXFO FTB-500","Anritsu MT9085"]},
+ {client:"Ducom Aerospace",icon:"fa-person-walking",title:"Vision-Based Human Tracking",desc:"Surveillance pipeline with detection, facial landmarks, segmentation and multi-object tracking for following human movement.",hw:["YOLO","DeepSORT","MediaPipe","OpenCV"]},
+ {client:"Ducom Aerospace",icon:"fa-robot",title:"Robotic Mapping & Live Video",desc:"ROS-based land robot platform with SLAM mapping of robot movement and live video visualisation.",hw:["ROS","Gazebo","RViz","SLAM"]}
+];
+const fallbackRepos=[
+ {name:"LabVIEW-Python-AI-Bridge",html_url:"https://github.com/kiran10299/LabVIEW-Python-AI-Bridge",description:"Process LabVIEW DAQ data through a Python ML backend for real-time predictive maintenance.",topics:["labview","python","predictive-maintenance"]},
+ {name:"AI-Hand-Gesture-Controller",html_url:"https://github.com/kiran10299/AI-Hand-Gesture-Controller",description:"Control your PC mouse, clicks and scrolling with hand gestures using MediaPipe & OpenCV.",topics:["computer-vision","mediapipe","opencv"]},
+ {name:"Desktop-Super-Tools",html_url:"https://github.com/kiran10299/Desktop-Super-Tools",description:"Auto file organiser and a global hotkey drop-down notepad.",topics:["python","automation"]},
+ {name:"Straw-Hat-Reminders",html_url:"https://github.com/kiran10299/Straw-Hat-Reminders",description:"Animated desktop companion reminding you to drink water, stretch and rest your eyes.",topics:["python","pyqt5"]}
+];
 
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function renderClients(){
+  document.getElementById('clientGrid').innerHTML=clientProjects.map(p=>`
+   <div class="card glass reveal"><span class="glow"></span><i class="fas ${p.icon} icon"></i>
+     <div class="client"><i class="fas ${p.icon}"></i>${p.client}</div>
+     <h3>${p.title}</h3><p>${p.desc}</p>
+     <div class="tags">${p.hw.map(h=>`<span class="tag v">${h}</span>`).join('')}</div>
+   </div>`).join('');
+}
+function renderRepos(list){
+  document.getElementById('repoGrid').innerHTML=list.map(r=>`
+   <div class="card glass reveal show"><span class="glow"></span><i class="fab fa-github icon"></i>
+     <div class="client"><i class="fas fa-code-branch"></i>${esc(r.language||'Open Source')}</div>
+     <h3>${esc(r.name.replace(/-/g,' '))}</h3><p>${esc(r.description||'No description provided.')}</p>
+     <div class="tags">${(r.topics||[]).slice(0,5).map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+     <div class="links"><a href="${esc(r.html_url)}" target="_blank"><i class="fab fa-github"></i> View code</a>${r.stargazers_count?`<span class="stars"><i class="fas fa-star"></i> ${r.stargazers_count}</span>`:''}</div>
+   </div>`).join('');
+  attachGlow();
+}
+async function loadRepos(){
+  try{
+    const res=await fetch('https://api.github.com/users/kiran10299/repos?sort=updated&per_page=30');
+    if(!res.ok) throw 0;
+    const data=(await res.json()).filter(r=>!r.fork&&r.name!=='kiran10299'&&r.name!=='kiran10299.github.io').slice(0,6);
+    renderRepos(data.length?data:fallbackRepos);
+  }catch(e){renderRepos(fallbackRepos)}
+}
+
+/* ---------- typing effect ---------- */
+const roles=["LabVIEW Developer","Test & Measurement Engineer","Robotics · ROS · SLAM","Computer Vision Engineer","Automation Specialist"];
+let ri=0,ci=0,del=false;const typedEl=document.getElementById('typed');
+(function type(){
+  const w=roles[ri];typedEl.textContent="> "+w.slice(0,ci);
+  if(!del&&ci<w.length){ci++;setTimeout(type,70)}
+  else if(!del){del=true;setTimeout(type,1600)}
+  else if(ci>0){ci--;setTimeout(type,35)}
+  else{del=false;ri=(ri+1)%roles.length;setTimeout(type,300)}
+})();
+
+/* ---------- reveal + counters ---------- */
+function observe(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;e.target.classList.add('show');
+    e.target.querySelectorAll('[data-count]').forEach(countUp);io.unobserve(e.target);
+  }),{threshold:.15});
+  document.querySelectorAll('.reveal:not(.show)').forEach(el=>io.observe(el));
+}
+function countUp(el){
+  const end=parseFloat(el.dataset.count),dec=+el.dataset.dec||0,suf=el.dataset.suffix||'';let t0=null;
+  const step=ts=>{t0=t0||ts;const p=Math.min((ts-t0)/1600,1),v=end*(1-Math.pow(1-p,3));
+    el.textContent=v.toFixed(dec)+(p===1?suf:'');if(p<1)requestAnimationFrame(step)};
+  requestAnimationFrame(step);
+}
+/* card mouse glow */
+function attachGlow(){
+  document.querySelectorAll('.card').forEach(c=>c.onmousemove=e=>{
+    const r=c.getBoundingClientRect(),g=c.querySelector('.glow');
+    if(g){g.style.left=(e.clientX-r.left)+'px';g.style.top=(e.clientY-r.top)+'px'}
+  });
+}
+
+/* ---------- network canvas ---------- */
+const cv=document.getElementById('net'),ctx=cv.getContext('2d');let pts=[],mouse={x:-999,y:-999};
+function size(){cv.width=innerWidth;cv.height=innerHeight;
+  const n=Math.min(90,Math.floor(innerWidth*innerHeight/16000));
+  pts=Array.from({length:n},()=>({x:Math.random()*cv.width,y:Math.random()*cv.height,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4}))}
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  for(const p of pts){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>cv.width)p.vx*=-1;if(p.y<0||p.y>cv.height)p.vy*=-1;
+    ctx.fillStyle='rgba(34,211,238,.6)';ctx.beginPath();ctx.arc(p.x,p.y,1.6,0,7);ctx.fill()}
+  for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+    const a=pts[i],b=pts[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+    if(d<130){ctx.strokeStyle=`rgba(167,139,250,${.18*(1-d/130)})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
+  for(const p of pts){const d=Math.hypot(p.x-mouse.x,p.y-mouse.y);
+    if(d<180){ctx.strokeStyle=`rgba(34,211,238,${.35*(1-d/180)})`;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke()}}
+  requestAnimationFrame(draw);
+}
+addEventListener('resize',size);addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY});
+
+/* ---------- nav ---------- */
+addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>40));
+document.getElementById('menuBtn').onclick=()=>document.getElementById('menu').classList.toggle('open');
+document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
+document.getElementById('yr').textContent=new Date().getFullYear();
+
+size();draw();renderClients();observe();attachGlow();loadRepos();
+</script>
 </body>
 </html>
