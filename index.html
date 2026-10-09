@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiran Shivakumar | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --primary: #38bdf8;
+            --text: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; }
+        a { color: var(--primary); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        
+        header { text-align: center; padding: 4rem 0; border-bottom: 1px solid var(--surface); }
+        h1 { font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: -1px; }
+        h2 { font-size: 1.25rem; color: var(--text-muted); font-weight: 300; margin-bottom: 1.5rem; }
+        .social-links a { font-size: 1.5rem; margin: 0 10px; color: var(--text-muted); transition: 0.3s; }
+        .social-links a:hover { color: var(--primary); }
+
+        section { padding: 4rem 0; border-bottom: 1px solid var(--surface); }
+        .section-title { font-size: 1.8rem; margin-bottom: 2rem; color: var(--primary); }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .card { background: var(--surface); padding: 1.5rem; border-radius: 12px; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+        .tags span { display: inline-block; background: #334155; color: #cbd5e1; font-size: 0.75rem; padding: 0.2rem 0.6rem; border-radius: 99px; margin: 0 0.2rem 0.2rem 0; }
+
+        .timeline-item { margin-bottom: 2rem; padding-left: 1.5rem; border-left: 2px solid var(--primary); }
+        .timeline-date { font-size: 0.85rem; color: var(--primary); font-weight: bold; }
+        .timeline-title { font-size: 1.2rem; font-weight: 500; margin: 0.3rem 0; }
+        .timeline-company { font-size: 1rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+
+        footer { text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Kiran Shivakumar</h1>
+        <h2>Application Engineer | LabVIEW Expert | Robotics & Computer Vision Enthusiast</h2>
+        <div class="social-links">
+            <a href="https://github.com/kiran10299" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://l1nk.dev/lS2L8" target="_blank"><i class="fab fa-linkedin"></i></a>
+            <a href="mailto:kiran10299@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title"><i class="fas fa-user"></i> About Me</h2>
+        <p>I am a dedicated Application Engineer and Mechatronics graduate with 4.7 years of experience designing, developing, and implementing robust software solutions. I specialize in <strong>Test & Measurement systems, Robotics, and Computer Vision</strong>. I bridge the gap between high-speed hardware data acquisition (LabVIEW) and modern Machine Learning algorithms (Python/ROS).</p>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title"><i class="fas fa-code"></i> Featured Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3><a href="https://github.com/kiran10299/LabVIEW-Python-AI-Bridge" target="_blank">LabVIEW Python AI Bridge</a></h3>
+                <p>A hybrid architecture demonstrating how to process high-speed LabVIEW DAQ data through a Python Machine Learning backend for real-time Predictive Maintenance and Anomaly Detection.</p>
+                <div class="tags"><span>LabVIEW</span><span>Python</span><span>Machine Learning</span><span>Industry 4.0</span></div>
+            </div>
+            
+            <div class="card">
+                <h3><a href="https://github.com/kiran10299/AI-Hand-Gesture-Controller" target="_blank">AI Hand-Gesture Controller</a></h3>
+                <p>A Computer Vision-powered desktop application built with Python, OpenCV, and MediaPipe that allows you to control your Windows mouse, scroll, and click using real-time hand gestures and a Sci-Fi HUD.</p>
+                <div class="tags"><span>Python</span><span>OpenCV</span><span>MediaPipe</span><span>Computer Vision</span></div>
+            </div>
+
+            <div class="card">
+                <h3><a href="https://github.com/kiran10299/Desktop-Super-Tools" target="_blank">Desktop Super Tools</a></h3>
+                <p>A suite of background productivity scripts including a "Zero-Clutter" watchdog that automatically organizes downloaded files, and a "Quick-Drop" global transparent notepad.</p>
+                <div class="tags"><span>Python</span><span>PyQt5</span><span>Automation</span><span>Watchdog</span></div>
+            </div>
+
+            <div class="card">
+                <h3><a href="https://github.com/kiran10299/Straw-Hat-Reminders" target="_blank">Straw-Hat Reminders</a></h3>
+                <p>A fully animated, procedural vector-graphics desktop pet that runs silently in your system tray and monitors active screen time to remind you to drink water, stretch, and rest your eyes.</p>
+                <div class="tags"><span>Python</span><span>PyQt5</span><span>UI/UX</span><span>Animation</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <h2 class="section-title"><i class="fas fa-briefcase"></i> Work Experience</h2>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">Feb 2024 - Present</div>
+            <div class="timeline-title">Application Engineer</div>
+            <div class="timeline-company">Ducom Aerospace Pvt Ltd | Bengaluru, India</div>
+            <p>Developed LabVIEW software for Test and Measurement related to Tribology. Captured data from force, temperature, humidity, and vibration sensors. Built Computer Vision pipelines using OpenCV, TensorFlow, and YOLO for human movement tracking. Developed robotic mapping and live video visualization using ROS, Gazebo, and SLAM.</p>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">Sep 2021 - Jan 2024</div>
+            <div class="timeline-title">LabVIEW Developer</div>
+            <div class="timeline-company">Access Automation Pvt Ltd | Bengaluru, India</div>
+            <p>Developed mission-critical software solutions for top-tier clients including ISRO, Tata Power, LG India, and NPCIL. Built Automated Test Equipment (ATE) for frequency response, Transformer Testing Benches using Power Analyzers (WT500), and Cell Voltage Monitoring Systems acquiring data over complex networks.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title"><i class="fas fa-tools"></i> Skills & Technologies</h2>
+        <div class="tags">
+            <span>LabVIEW</span><span>Python</span><span>C/C++</span><span>ROS</span><span>Gazebo</span><span>OpenCV</span><span>TensorFlow</span><span>YOLO</span><span>MediaPipe</span><span>DeepSORT</span><span>RS-485</span><span>TCP/IP</span><span>Modbus</span><span>CAN Bus</span><span>SCPI</span><span>HART</span><span>GPIB</span><span>Hardware DAQ</span>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Kiran Shivakumar. Built with code.</p>
+    </footer>
+</div>
+
+</body>
+</html>
