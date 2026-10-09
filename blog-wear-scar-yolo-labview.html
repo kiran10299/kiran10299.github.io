@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wear Scar Detection with YOLO, Python and LabVIEW | Kiran Shivakumar</title>
+<meta name="description" content="Technical case study on building an automated optical wear scar measurement system using YOLOv5, PyQt5, and LabVIEW binary TCP sequencing.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+:root{
+  --bg:#070b16;--surface:#0e1526;--surface2:#15203a;--border:rgba(255,255,255,.08);
+  --text:#f1f5f9;--muted:#94a3b8;--c1:#38bdf8;--c2:#a855f7;--accent:#22d3ee;
+  --grad:linear-gradient(135deg,var(--c1),var(--c2));
+  --font-sans:'Inter',system-ui,sans-serif;
+  --font-head:'Space Grotesk',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--text);font-family:var(--font-sans);
+  line-height:1.75;overflow-x:hidden;
+}
+
+/* background ambient glow */
+.blob{position:fixed;width:600px;height:600px;border-radius:50%;filter:blur(140px);opacity:.12;pointer-events:none;z-index:0}
+.b1{top:-100px;left:-100px;background:var(--c1)}
+.b2{bottom:-100px;right:-100px;background:var(--c2)}
+
+/* nav */
+nav{
+  position:sticky;top:0;z-index:100;
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  background:rgba(7,11,22,.8);border-bottom:1px solid var(--border);
+  padding:.9rem 6vw;display:flex;justify-content:space-between;align-items:center;
+}
+.logo{font-family:var(--font-head);font-size:1.4rem;font-weight:700;color:var(--text);text-decoration:none}
+.logo span{color:var(--c1)}
+.nav-links{display:flex;align-items:center;gap:1.5rem}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:.2s;display:inline-flex;align-items:center;gap:.5rem}
+.nav-links a:hover{color:var(--text)}
+
+/* container */
+.container{max-width:920px;margin:0 auto;padding:3rem 1.5rem 6rem;position:relative;z-index:1}
+
+/* article header */
+.article-header{margin-bottom:3.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--border)}
+.back-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.88rem;color:var(--c1);text-decoration:none;
+  padding:.4rem .9rem;border-radius:99px;background:rgba(56,189,248,.1);
+  border:1px solid rgba(56,189,248,.2);margin-bottom:1.8rem;transition:.2s;
+}
+.back-btn:hover{background:rgba(56,189,248,.2);transform:translateX(-3px)}
+
+.article-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.2rem}
+.tag{
+  padding:.22rem .75rem;border-radius:99px;font-size:.75rem;
+  font-family:var(--font-mono);background:rgba(255,255,255,.05);
+  border:1px solid var(--border);color:var(--muted);
+}
+.tag.v{background:rgba(167,139,250,.12);color:#d8b4fe;border-color:rgba(167,139,250,.3)}
+.tag.c{background:rgba(56,189,248,.12);color:#7dd3fc;border-color:rgba(56,189,248,.3)}
+
+h1.title{
+  font-family:var(--font-head);font-size:clamp(2.1rem,4.5vw,3.2rem);
+  line-height:1.2;font-weight:700;letter-spacing:-0.02em;margin-bottom:1.4rem;
+}
+.article-meta{
+  display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;
+  color:var(--muted);font-size:.9rem;
+}
+.article-meta span{display:inline-flex;align-items:center;gap:.45rem}
+.author-pill{display:inline-flex;align-items:center;gap:.6rem;color:var(--text);font-weight:600}
+.author-avatar{width:32px;height:32px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:.75rem;font-weight:700;color:#0a0e1a}
+
+/* article body typography */
+.article-content h2{
+  font-family:var(--font-head);font-size:1.85rem;color:var(--text);
+  margin:3rem 0 1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);
+  letter-spacing:-0.01em;display:flex;align-items:center;gap:.6rem;
+}
+.article-content h3{
+  font-family:var(--font-head);font-size:1.35rem;color:#f8fafc;
+  margin:2.2rem 0 .9rem;
+}
+.article-content p{margin-bottom:1.4rem;color:#cbd5e1;font-size:1.05rem}
+.article-content ul,.article-content ol{margin:0 0 1.5rem 1.6rem;color:#cbd5e1}
+.article-content li{margin-bottom:.55rem;font-size:1.02rem}
+.article-content strong{color:#f8fafc;font-weight:600}
+
+/* callout cards */
+.callout{
+  background:rgba(21,32,58,.5);border:1px solid rgba(56,189,248,.25);
+  border-left:4px solid var(--c1);border-radius:12px;padding:1.4rem 1.6rem;
+  margin:2rem 0;backdrop-filter:blur(8px);
+}
+.callout.tip{border-color:rgba(168,85,247,.3);border-left-color:var(--c2)}
+.callout h4{font-family:var(--font-head);font-size:1.1rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;color:var(--c1)}
+.callout.tip h4{color:#d8b4fe}
+
+/* code blocks */
+pre{
+  background:#090d18;border:1px solid var(--border);border-radius:12px;
+  padding:1.3rem 1.5rem;overflow-x:auto;margin:1.6rem 0;
+  font-family:var(--font-mono);font-size:.88rem;line-height:1.6;color:#e2e8f0;
+}
+code{
+  font-family:var(--font-mono);font-size:.9em;background:rgba(255,255,255,.08);
+  padding:.15rem .45rem;border-radius:6px;color:#7dd3fc;
+}
+pre code{background:transparent;padding:0;color:inherit}
+
+/* architecture diagram box */
+.diagram-box{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:2rem;margin:2rem 0;text-align:center;
+}
+.diagram-box h4{font-family:var(--font-head);font-size:1.1rem;color:var(--c1);margin-bottom:1.2rem}
+
+/* tables */
+.table-wrap{overflow-x:auto;margin:2rem 0;border-radius:12px;border:1px solid var(--border)}
+table{width:100%;border-collapse:collapse;font-size:.9rem;background:var(--surface)}
+th{background:rgba(255,255,255,.04);color:var(--c1);text-align:left;padding:.9rem 1.1rem;font-family:var(--font-mono);font-size:.82rem;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border)}
+td{padding:.85rem 1.1rem;border-bottom:1px solid rgba(255,255,255,.05);color:#cbd5e1}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+
+/* math formula display */
+.formula-box{
+  background:rgba(14,21,38,.8);border:1px solid rgba(168,85,247,.25);border-radius:12px;
+  padding:1.4rem;margin:1.8rem 0;text-align:center;font-family:var(--font-mono);
+  font-size:1.1rem;color:#f1f5f9;
+}
+.formula-box .caption{font-size:.82rem;color:var(--muted);margin-top:.6rem;font-family:var(--font-sans)}
+
+/* author footer */
+.author-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:16px;
+  padding:2.2rem;margin-top:4rem;display:flex;align-items:center;gap:1.8rem;
+  flex-wrap:wrap;
+}
+.author-avatar-lg{width:72px;height:72px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-size:1.8rem;font-weight:700;color:#0a0e1a;flex-shrink:0}
+.author-info{flex:1;min-width:260px}
+.author-info h3{font-family:var(--font-head);font-size:1.3rem;margin-bottom:.3rem}
+.author-info p{color:var(--muted);font-size:.92rem;margin-bottom:.8rem}
+.author-links{display:flex;gap:1rem}
+.author-links a{color:var(--c1);text-decoration:none;font-size:.9rem;display:inline-flex;align-items:center;gap:.4rem}
+.author-links a:hover{text-decoration:underline}
+
+footer{text-align:center;padding:3rem 1.5rem;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border)}
+</style>
+</head>
+<body>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+
+<nav>
+  <a href="index.html" class="logo">KS<span>.</span></a>
+  <div class="nav-links">
+    <a href="index.html#projects"><i class="fas fa-briefcase"></i> Projects</a>
+    <a href="index.html#blog"><i class="fas fa-feather-pointed"></i> Blog</a>
+    <a href="https://github.com/kiran10299" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+    <a href="https://www.linkedin.com/in/kiranshivakumar" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+  </div>
+</nav>
+
+<div class="container">
+  
+  <header class="article-header">
+    <a href="index.html#blog" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+    
+    <div class="article-tags">
+      <span class="tag c">Computer Vision</span>
+      <span class="tag v">YOLOv5</span>
+      <span class="tag">PyQt5</span>
+      <span class="tag">LabVIEW</span>
+      <span class="tag">TCP/IP</span>
+      <span class="tag">DirectShow</span>
+      <span class="tag">Tribology DAQ</span>
+    </div>
+
+    <h1 class="title">Wear Scar Detection with YOLO, Python and LabVIEW</h1>
+
+    <div class="article-meta">
+      <div class="author-pill">
+        <div class="author-avatar">KS</div>
+        <span>Kiran Shivakumar</span>
+      </div>
+      <span><i class="far fa-calendar-alt"></i> October 9, 2026</span>
+      <span><i class="far fa-clock"></i> 10 min read</span>
+      <span><i class="fas fa-microscope"></i> Ducom Aerospace Case Study</span>
+    </div>
+  </header>
+
+  <article class="article-content">
+
+    <h2><i class="fas fa-bullseye" style="color:var(--c1)"></i> Why I Built This</h2>
+    <p>
+      In tribological testing (evaluating friction, wear and lubrication on ball-on-disc or pin-on-disk test rigs), measuring the wear scar on a metallic or ceramic test specimen is critical for calculating the wear volume and anti-wear properties of lubricants.
+    </p>
+    <p>
+      Traditionally, measuring a wear scar is done <strong>manually</strong>: an operator stares into an optical microscope, manually drags digital calipers across the circular or elliptical crater, and reads the crosshair measurements. This has severe drawbacks:
+    </p>
+    <ul>
+      <li><strong>Slow and subjective:</strong> Measurement repeatability depends heavily on operator fatigue and manual judgment.</li>
+      <li><strong>Failure of classical edge detection:</strong> Classic thresholding (Otsu, adaptive) and Canny edge detectors struggle because metallic specimens suffer from specular reflections, microscopic grinding scars, variable surface textures, and inconsistent microscope illumination.</li>
+    </ul>
+    <p>
+      To solve this, I designed and deployed an automated optical measurement pipeline: a high-resolution digital microscope takes the picture, a custom-trained <strong>YOLO neural network</strong> locates the exact scar boundary, and <strong>LabVIEW</strong> drives the test sequence over a deterministic byte-level binary TCP protocol, converting pixel dimensions to calibrated micrometres (&mu;m).
+    </p>
+
+    <div class="callout">
+      <h4><i class="fas fa-list-check"></i> The 6-Step Implementation Pipeline</h4>
+      <ol style="margin-bottom:0">
+        <li>Capturing high-resolution images from the microscope camera via DirectShow</li>
+        <li>Annotating polygon contours using LabelMe</li>
+        <li>Converting annotations and fine-tuning YOLOv5 to export <code>best.pt</code></li>
+        <li>Inference pipeline, Non-Maximum Suppression (NMS), and pixel-to-micrometre optical scaling</li>
+        <li>Freezing Python into headless, standalone Windows executables (PyInstaller)</li>
+        <li>Controlling the executables from LabVIEW using a robust, big-endian binary TCP protocol</li>
+      </ol>
+    </div>
+
+    <h2><i class="fas fa-sitemap" style="color:var(--c1)"></i> How the Pieces Fit Together</h2>
+    <p>
+      LabVIEW is the single master executive on the test bench. It knows the exact test sequence, motor positions, and cycle counts. It spawns two independent Python background processes as standalone executables and commands them over TCP sockets.
+    </p>
+
+    <div class="diagram-box">
+      <h4>System Architecture: LabVIEW Master &middot; 2 Python EXEs &middot; best.pt</h4>
+      <svg viewBox="0 0 800 280" style="max-width:100%;height:auto;font-family:'Space Grotesk',sans-serif">
+        <defs>
+          <linearGradient id="gBlue" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0284c7"/>
+            <stop offset="100%" stop-color="#38bdf8"/>
+          </linearGradient>
+          <linearGradient id="gPurple" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#7c3aed"/>
+            <stop offset="100%" stop-color="#c084fc"/>
+          </linearGradient>
+          <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/></filter>
+        </defs>
+
+        <!-- LabVIEW Box -->
+        <rect x="20" y="70" width="180" height="90" rx="10" fill="#0f172a" stroke="#38bdf8" stroke-width="2" filter="url(#shadow)"/>
+        <text x="110" y="105" fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle">LabVIEW Master</text>
+        <text x="110" y="125" fill="#94a3b8" font-size="11" text-anchor="middle">Test Sequencer &amp; State Machine</text>
+        <text x="110" y="142" fill="#64748b" font-size="10" text-anchor="middle">(Runs on every test)</text>
+
+        <!-- Arrow to Camera EXE -->
+        <path d="M 200 100 L 290 55" stroke="#38bdf8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+        <text x="245" y="70" fill="#7dd3fc" font-size="10" font-family="'JetBrains Mono'">TCP :5006</text>
+
+        <!-- Camera EXE Box -->
+        <rect x="300" y="20" width="210" height="75" rx="10" fill="#1e293b" stroke="#0284c7" stroke-width="1.5" filter="url(#shadow)"/>
+        <text x="405" y="47" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">Camera Daemon (EXE)</text>
+        <text x="405" y="66" fill="#94a3b8" font-size="10.5" text-anchor="middle">PyQt5 + DirectShow Video Stream</text>
+        <text x="405" y="80" fill="#38bdf8" font-size="9.5" text-anchor="middle">Saves captured frame</text>
+
+        <!-- Microscope Camera -->
+        <rect x="580" y="20" width="180" height="75" rx="10" fill="#090d18" stroke="#64748b" stroke-width="1.5"/>
+        <text x="670" y="47" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">Optical Microscope</text>
+        <text x="670" y="66" fill="#94a3b8" font-size="10.5" text-anchor="middle">USB 3.0 CMOS Camera</text>
+        <line x1="510" y1="57" x2="580" y2="57" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="4"/>
+        <text x="545" y="50" fill="#94a3b8" font-size="9.5" text-anchor="middle">DirectShow</text>
+
+        <!-- Arrow to Detection EXE -->
+        <path d="M 200 130 L 290 175" stroke="#a855f7" stroke-width="2" fill="none"/>
+        <text x="245" y="165" fill="#d8b4fe" font-size="10" font-family="'JetBrains Mono'">TCP :5007</text>
+
+        <!-- Detection EXE Box -->
+        <rect x="300" y="140" width="210" height="80" rx="10" fill="#1e293b" stroke="#7c3aed" stroke-width="1.5" filter="url(#shadow)"/>
+        <text x="405" y="168" fill="#f8fafc" font-size="13" font-weight="600" text-anchor="middle">Detection Viewer (EXE)</text>
+        <text x="405" y="187" fill="#94a3b8" font-size="10.5" text-anchor="middle">YOLOv5 Inference + ROI Calc</text>
+        <text x="405" y="202" fill="#c084fc" font-size="9.5" text-anchor="middle">Returns JSON &mu;m Measurements</text>
+
+        <!-- Saved Image Connection -->
+        <line x1="405" y1="95" x2="405" y2="140" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="3"/>
+        <text x="430" y="120" fill="#94a3b8" font-size="9.5">saved image</text>
+
+        <!-- Model Box -->
+        <rect x="580" y="140" width="180" height="80" rx="10" fill="#2e1065" stroke="#a855f7" stroke-width="1.5"/>
+        <text x="670" y="168" fill="#e9d5ff" font-size="13" font-weight="700" text-anchor="middle">best.pt Model</text>
+        <text x="670" y="187" fill="#c084fc" font-size="10.5" text-anchor="middle">Trained YOLOv5 Weights</text>
+        <text x="670" y="202" fill="#94a3b8" font-size="9.5" text-anchor="middle">(Offline Fine-Tuned)</text>
+        <line x1="510" y1="180" x2="580" y2="180" stroke="#a855f7" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <h2><i class="fas fa-camera" style="color:var(--c1)"></i> Step 1: Capturing Images with a Python Live-Stream App</h2>
+    <p>
+      Every high-performance model depends on a rock-solid, consistent dataset. The first application I wrote (<code>livestream10.py</code>) has one critical mission: display the live microscope camera stream and snap an uncompressed, crystal-clear frame whenever LabVIEW issues the trigger.
+    </p>
+    <p>
+      The dataset goal was <strong>100 to 500 images</strong> acquired at calibrated optical magnification and fixed resolution (up to 3840 &times; 2880), saved with specimen and test IDs.
+    </p>
+
+    <h3>Internal Architecture:</h3>
+    <ul>
+      <li><strong>Camera Worker Thread:</strong> Runs in a dedicated <code>QThread</code> using <code>cv2.VideoCapture(..., cv2.CAP_DSHOW)</code>. The thread maintains a single-frame buffer, ensuring LabVIEW never receives a stale frame from hardware queues, and automatically triggers auto-reconnect if 15 consecutive reads fail.</li>
+      <li><strong>Frameless Always-on-Top Window:</strong> Boots in hidden mode so the executable lives in the background without stealing operator focus until LabVIEW sends a show/restore command.</li>
+      <li><strong>Non-blocking TCP Server (Port 5006):</strong> A daemon listening thread parses byte commands and uses Qt Signals to cross thread boundaries safely to the GUI.</li>
+    </ul>
+
+    <div class="callout tip">
+      <h4><i class="fas fa-lightbulb"></i> Three Production Tweaks that Solved Rig Instability</h4>
+      <p><strong>1. Fast Mode Probing:</strong> Calling OpenCV's resolution probes sequentially causes driver deadlocks on DirectShow USB microscope cameras. Instead, I query supported sensor resolutions directly through <code>QCameraInfo</code> from the Windows kernel and fall back to DirectShow only if needed.</p>
+      <p><strong>2. Hidden Frame Capturing:</strong> Every incoming frame is stored in a thread-safe <code>last_frame</code> buffer before UI rendering. Therefore, an image save request succeeds with zero frame drops even if the GUI window is minimized.</p>
+      <p><strong>3. Camera Release on Minimize:</strong> Minimizing the window suspends the capture thread and releases the hardware lock on the USB sensor, cooling down the CMOS sensor during prolonged idle cycles.</p>
+    </div>
+
+    <h3>Camera Command Set (TCP Port 5006)</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Hex Code</th>
+            <th>Payload</th>
+            <th>Operational Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Connect Camera</td><td><code>0x01</code></td><td>Camera index (e.g. 0)</td><td>Probes resolutions, opens DirectShow stream, selects max mode</td></tr>
+          <tr><td>Start Stream</td><td><code>0x02</code></td><td>None</td><td>Activates acquisition thread and displays frameless view</td></tr>
+          <tr><td>Stop Stream</td><td><code>0x03</code></td><td>None</td><td>Stops capture worker and hides GUI</td></tr>
+          <tr><td>Grayscale Mode</td><td><code>0x04</code></td><td>None</td><td>Switches capture stream to single-channel 8-bit mono</td></tr>
+          <tr><td>RGB Mode</td><td><code>0x05</code></td><td>None</td><td>Switches stream to full 24-bit RGB color</td></tr>
+          <tr><td>Minimize</td><td><code>0x07</code></td><td>None</td><td>Releases camera hardware lock and hides window</td></tr>
+          <tr><td>Close App</td><td><code>0x08</code></td><td>None</td><td>Clean process termination (only if authorized)</td></tr>
+          <tr><td>List Modes</td><td><code>0x12</code></td><td>None</td><td>Replies <code>0x90</code> with supported <code>W x H</code> resolution modes</td></tr>
+          <tr><td>Set Mode</td><td><code>0x13</code></td><td>Mode index</td><td>Applies selected resolution profile</td></tr>
+          <tr><td>Restore</td><td><code>0x14</code></td><td>None</td><td>Re-locks camera and restores GUI to foreground</td></tr>
+          <tr><td>Save Image</td><td><code>0x15</code></td><td>Full filepath</td><td>Flushes <code>last_frame</code> to disk with <code>cv2.imwrite()</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The core socket receiver ensures packet boundary integrity by enforcing a 3-byte header protocol:</p>
+    <pre><code># Big-endian packet parsing with socket framing protection
+header = conn.recv(3)
+cmd = header[0]
+payload_len = int.from_bytes(header[1:3], "big")
+
+# Enforce stream completeness
+payload_raw = self.recv_exact(conn, payload_len)
+payload = payload_raw.decode("utf-8", errors="ignore")</code></pre>
+
+    <h2><i class="fas fa-draw-polygon" style="color:var(--c1)"></i> Step 2: Annotating the Scar with LabelMe</h2>
+    <p>
+      Because metallic wear scars have irregular, semi-circular or elliptical geometry with feathering at the boundaries, rectangle bounding boxes during annotation are insufficient. I used <strong>LabelMe</strong> to annotate the true boundary as a multi-point closed polygon.
+    </p>
+
+    <pre><code>{
+  "shapes": [
+    {
+      "label": "scar",
+      "points": [
+        [412.3, 188.7], [430.1, 175.2], [455.8, 172.0],
+        [468.4, 190.5], [462.0, 215.9], [430.6, 222.1],
+        [410.2, 205.4]
+      ],
+      "shape_type": "polygon"
+    }
+  ],
+  "imagePath": "specimen_014.jpg",
+  "imageHeight": 480,
+  "imageWidth": 640
+}</code></pre>
+
+    <div class="callout">
+      <h4><i class="fas fa-check-double"></i> Golden Rules for Industrial CV Datasets</h4>
+      <ul>
+        <li><strong>Tight Boundary Tracing:</strong> The neural network's localization precision can never exceed the accuracy of the manual training ground truth.</li>
+        <li><strong>Immutable Class Typography:</strong> Strict case normalization (e.g. always <code>"scar"</code>, never <code>"Scar"</code> or <code>"SCAR"</code>) prevents phantom classes.</li>
+        <li><strong>Optical Diversity:</strong> Include specimens with different reflectivities, oil films, scratches, and variable microscope light angles to prevent the model from memorizing specific illuminations.</li>
+      </ul>
+    </div>
+
+    <h3>Converting LabelMe JSON to YOLOv5 Format</h3>
+    <p>
+      YOLO requires normalized coordinates in a companion <code>.txt</code> file matching each image: 
+      <code>&lt;class_id&gt; &lt;x_center&gt; &lt;y_center&gt; &lt;width&gt; &lt;height&gt;</code> normalized from 0.0 to 1.0.
+    </p>
+
+    <div class="formula-box">
+      x_center = (x_min + x_max) / (2 * W) &emsp; y_center = (y_min + y_max) / (2 * H)<br>
+      width = (x_max - x_min) / W &emsp; height = (y_max - y_min) / H
+      <div class="caption">Worked example (W=640, H=480, Box [410.2, 172.0] to [468.4, 222.1]) &rarr; <code>0 0.6864 0.4105 0.0909 0.1044</code></div>
+    </div>
+
+    <h2><i class="fas fa-brain" style="color:var(--c1)"></i> Step 3: Training YOLOv5 and Exporting best.pt</h2>
+    <p>
+      With images and normalized labels partitioned 80/20 into train/validation folders, fine-tuning is launched:
+    </p>
+    <pre><code>python train.py --img 640 --batch 16 --epochs 300 \
+  --data dataset.yaml --weights yolov5s.pt --cfg yolov5s.yaml</code></pre>
+
+    <p>
+      The secret to achieving >98% mAP with only a few hundred images was <strong>transfer learning</strong> from <code>yolov5s.pt</code> pretrained on MS COCO. The lower convolutional layers already understand edge gradients, texture contrasts, and elliptical profiles.
+    </p>
+
+    <h3>Network Architecture Deep Dive:</h3>
+    <ul>
+      <li><strong>Backbone (CSPDarknet53):</strong> Spatial resolution is downsampled across 5 pyramid stages (640 &rarr; 320 &rarr; 160 &rarr; 80 &rarr; 40 &rarr; 20) while channel depth scales up. Early layers capture high-frequency wear scar scratches; deeper layers capture macro circular geometry. An <strong>SPPF (Spatial Pyramid Pooling - Fast)</strong> layer aggregates multi-scale receptive fields.</li>
+      <li><strong>Neck (PANet):</strong> Path Aggregation Network merges bottom-up detail features with top-down semantic features, maintaining spatial localization accuracy.</li>
+      <li><strong>Head:</strong> Evaluates three anchor scales with <strong>CIoU (Complete Intersection over Union)</strong> bounding box regression loss, penalizing aspect ratio discrepancies.</li>
+      <li><strong>Augmentation:</strong> Mosaic 4-image stitching, random scaling, and color/brightness jitter simulate fluctuating lab lighting conditions.</li>
+    </ul>
+
+    <div class="callout tip">
+      <h4><i class="fas fa-medal"></i> Why Deploy best.pt Over last.pt?</h4>
+      <p>During a 300-epoch run, <code>last.pt</code> merely represents the final epoch, which frequently suffers from minor overfitting. In contrast, <code>best.pt</code> preserves the checkpoint that achieved maximum validation fitness on unseen test data across <code>mAP@0.5:0.95</code>.</p>
+    </div>
+
+    <h2><i class="fas fa-ruler-combined" style="color:var(--c1)"></i> Step 4: Sub-Micrometre Optical Calibration</h2>
+    <p>
+      Neural networks output pixel coordinates. To obtain engineering units for ISO/ASTM wear scar standards, we must calibrate pixel distance against a certified optical stage micrometer:
+    </p>
+
+    <div class="formula-box">
+      k = Known Distance (&mu;m) / Measured Distance (px)
+      <div class="caption">Optical Calibration Constant (k in &mu;m/pixel)</div>
+    </div>
+
+    <div class="formula-box">
+      Major = L_px &times; k &emsp;&emsp; Minor = S_px &times; k &emsp;&emsp; Average = (Major + Minor) / 2
+      <div class="caption">Dimensional wear diameter calculation</div>
+    </div>
+
+    <h3>The Viewer and Measurement TCP Daemon (Port 5007)</h3>
+    <p>
+      A second PyQt5 application opens the captured image, displays the bounding ellipse and ROI overlay, and exposes measurement endpoints to LabVIEW:
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th>Hex Commands</th>
+            <th>Function</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Image</td><td><code>0x01</code>, <code>0x02</code></td><td>Open image file, Fit image to window</td></tr>
+          <tr><td>ROI</td><td><code>0x03</code>, <code>0x04</code>, <code>0x14</code>, <code>0x12</code></td><td>Draw rectangle/line, Resize ROI, Clear all annotations</td></tr>
+          <tr><td>Zoom</td><td><code>0x06</code>, <code>0x07</code>, <code>0x08</code></td><td>Zoom in, Zoom out, Absolute zoom percentage</td></tr>
+          <tr><td>Measurements</td><td><code>0x13</code></td><td>Return JSON payload with Major, Minor, Mean (&mu;m)</td></tr>
+          <tr><td>Replies</td><td><code>0x80</code> (ACK), <code>0x81</code> (Error)</td><td>Deterministic handshake response to LabVIEW</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2><i class="fas fa-box" style="color:var(--c1)"></i> Step 5: Packaging Standalone Windows EXEs</h2>
+    <p>
+      Factory test benches and customer PC deployments must never depend on manual Python environments, CUDA toolkits, or pip dependencies. Both applications are compiled into self-contained Windows binaries using <strong>PyInstaller</strong>:
+    </p>
+
+    <pre><code>pyinstaller --noconfirm --onefile --noconsole livestream10.py</code></pre>
+
+    <div class="callout">
+      <h4><i class="fas fa-triangle-exclamation"></i> Critical Windows Multiprocessing Fix</h4>
+      <p>When compiling Python scripts that spawn threads or subprocesses on Windows, failing to include <code>multiprocessing.freeze_support()</code> causes compiled binaries to spawn infinite fork-bomb loops on execution!</p>
+      <pre><code>import multiprocessing
+if __name__ == '__main__':
+    multiprocessing.freeze_support()</code></pre>
+    </div>
+
+    <h2><i class="fas fa-network-wired" style="color:var(--c1)"></i> Step 6: Driving the Entire Sequence from LabVIEW</h2>
+    <p>
+      LabVIEW initiates the test run, uses <code>System Exec</code> to launch the background executables, and connects via standard LabVIEW TCP sockets.
+    </p>
+
+    <h3>Binary Packet Specification:</h3>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Field</th>
+            <th>Length</th>
+            <th>Type</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>CMD</td><td>1 Byte</td><td>U8</td><td>Command opcode (e.g. <code>0x01</code>, <code>0x15</code>)</td></tr>
+          <tr><td>LENGTH</td><td>2 Bytes</td><td>U16 (Big-Endian)</td><td>Payload byte count (MSB first)</td></tr>
+          <tr><td>PAYLOAD</td><td>N Bytes</td><td>UTF-8 String</td><td>Filepath, JSON parameter, or empty</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      <strong>Example:</strong> Sending filepath <code>C:\LAB-IQ 150\images\test.png</code> (29 bytes = <code>0x001D</code>) with command <code>0x01</code>:
+    </p>
+    <pre><code>01 00 1D 43 3A 5C 4C 41 42 2D 49 51 20 31 35 30 5C 69 6D 61 67 65 73 5C 74 65 73 74 2E 70 6E 67</code></pre>
+
+    <h3>End-to-End Automated Test Sequence:</h3>
+    <ol>
+      <li><strong>Launch &amp; Handshake:</strong> LabVIEW starts camera daemon, connects to <code>localhost:5006</code>.</li>
+      <li><strong>Hardware Init:</strong> LabVIEW transmits <code>0x01</code> (Connect Camera) &rarr; <code>0x02</code> (Start Stream).</li>
+      <li><strong>Trigger Capture:</strong> Specimen reaches cycle count; LabVIEW sends <code>0x15</code> (Save Image) with file target.</li>
+      <li><strong>Release Resource:</strong> LabVIEW transmits <code>0x07</code> (Minimize) to release USB DirectShow handle.</li>
+      <li><strong>Inference &amp; Measure:</strong> LabVIEW sends image path to detection viewer (<code>0x01</code>), then requests results (<code>0x13</code>).</li>
+      <li><strong>Report Generation:</strong> LabVIEW reads the JSON reply (<code>{"major_um": 421.8, "minor_um": 415.2, "mean_um": 418.5}</code>) and appends values to the certified ASTM test certificate.</li>
+    </ol>
+
+    <h2><i class="fas fa-lightbulb" style="color:var(--c1)"></i> Key Engineering Takeaways</h2>
+    <div class="callout tip">
+      <ul>
+        <li><strong>Dataset Quality &gt; Model Architecture:</strong> Eliminating reflections and standardizing magnification outperformed tuning hyperparameters by an order of magnitude.</li>
+        <li><strong>Pretrained Weights are Mandatory:</strong> Fine-tuning pretrained COCO weights allowed training to converge in under 45 minutes on a standard laptop GPU.</li>
+        <li><strong>Binary TCP beats REST/HTTP:</strong> In industrial environments, a 3-byte binary TCP header eliminated HTTP latency, parsing overhead, and third-party web server dependencies.</li>
+        <li><strong>Decoupled Architecture:</strong> Keeping machine vision in Python and hardware sequencing in LabVIEW leverages the best strengths of both platforms without monolithic lock-in.</li>
+      </ul>
+    </div>
+
+  </article>
+
+  <div class="author-card">
+    <div class="author-avatar-lg">KS</div>
+    <div class="author-info">
+      <h3>Kiran Shivakumar</h3>
+      <p>Application Engineer specializing in LabVIEW Test &amp; Measurement, Computer Vision (YOLO/OpenCV), Robotics (ROS/SLAM), and Industrial Protocols.</p>
+      <div class="author-links">
+        <a href="https://github.com/kiran10299" target="_blank"><i class="fab fa-github"></i> github.com/kiran10299</a>
+        <a href="https://www.linkedin.com/in/kiranshivakumar" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="KIRAN_SHIVAKUMAR_RESUME.pdf" download="KIRAN SHIVAKUMAR RESUME.pdf"><i class="fas fa-file-pdf"></i> Resume PDF</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>&copy; 2026 Kiran Shivakumar &middot; All rights reserved.</p>
+</footer>
+
+</body>
+</html>
