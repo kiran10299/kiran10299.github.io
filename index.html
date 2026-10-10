@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kiran Shivakumar | LabVIEW & Robotics Engineer</title>
 <meta name="description" content="Kiran Shivakumar - Application Engineer specialising in LabVIEW Test & Measurement, Robotics (ROS) and Computer Vision. Bengaluru, India.">
+
+<!-- Open Graph / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kiran Shivakumar | Application Engineer · LabVIEW, Test & Measurement, Robotics">
+<meta property="og:description" content="Application Engineer with 5+ years of experience delivering automated test systems for ISRO, NPCIL, and Tata Power, with Python, ROS, and computer vision.">
+<meta property="og:url" content="https://kiran10299.github.io/">
+<meta property="og:site_name" content="Kiran Shivakumar Portfolio">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kiran Shivakumar | Application Engineer">
+<meta name="twitter:description" content="Specialising in LabVIEW Test & Measurement, Robotics (ROS, SLAM) and Computer Vision. Bengaluru, India.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -151,8 +164,36 @@ section{padding:6rem 6vw;position:relative}
 .flow-step{display:inline-flex;align-items:center;gap:.6rem;font-size:.85rem;color:var(--text);font-weight:500}
 .flow-step span{width:22px;height:22px;border-radius:50%;background:var(--grad);color:#0a0e1a;display:grid;place-items:center;font-size:.75rem;font-weight:700}
 .flow-arrow{color:var(--c1);font-size:.8rem;opacity:.7}
-.blog-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:2rem}
-.blog-footer{display:flex;gap:1rem;flex-wrap:wrap}
+.blog-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.6rem}
+.blog-footer{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:auto}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.6rem}
+
+/* workbench live interactive demos */
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:1.6rem}
+.demo-card{padding:2rem;border-radius:20px;display:flex;flex-direction:column;position:relative}
+.btn-demo{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);padding:.4rem .9rem;border-radius:8px;font-size:.8rem;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif;display:inline-flex;align-items:center;gap:.4rem}
+.btn-demo:hover{background:rgba(255,255,255,.1);color:var(--text)}
+.btn-demo.active{background:rgba(34,211,238,.16);color:#38bdf8;border-color:rgba(34,211,238,.45);font-weight:600}
+.iso-badge{padding:.25rem .75rem;border-radius:99px;font-size:.75rem;font-weight:700;font-family:'JetBrains Mono';border:1px solid;letter-spacing:.5px}
+.iso-badge.zone-a{background:rgba(16,185,129,.15);color:#34d399;border-color:rgba(16,185,129,.35)}
+.iso-badge.zone-d{background:rgba(239,68,68,.18);color:#f87171;border-color:rgba(239,68,68,.4);animation:pulse 1s infinite alternate}
+@keyframes pulse{from{opacity:0.65}to{opacity:1}}
+.vibe-hud{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem;margin-top:1rem;font-family:'JetBrains Mono';font-size:.8rem}
+.vibe-hud div{background:rgba(7,11,22,.65);padding:.55rem .75rem;border-radius:8px;border:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
+.hud-lbl{font-size:.68rem;color:var(--muted);font-family:'Inter',sans-serif}
+
+/* repo category filters */
+.repo-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem}
+.filter-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);padding:.35rem .85rem;border-radius:99px;font-size:.82rem;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif}
+.filter-btn:hover{color:var(--text);background:rgba(255,255,255,.08)}
+.filter-btn.active{background:linear-gradient(135deg,rgba(34,211,238,.2),rgba(167,139,250,.2));color:#38bdf8;border-color:rgba(56,189,248,.4);font-weight:600}
+
+/* modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.78);backdrop-filter:blur(8px);z-index:1000;display:none;place-items:center;padding:1.5rem}
+.modal-backdrop.open{display:grid}
+.modal-box{background:#0d1424;border:1px solid var(--border);border-radius:18px;max-width:760px;width:100%;max-height:90vh;overflow-y:auto;padding:2rem;position:relative;box-shadow:0 25px 50px -12px rgba(0,0,0,.75)}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;background:none;border:none;color:var(--muted);font-size:1.4rem;cursor:pointer;transition:.2s}
+.modal-close:hover{color:#fff}
 
 /* skills */
 .skills{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.4rem}
@@ -195,6 +236,8 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#workbench">Live Demo</a></li>
+    <li><a href="#opensource">Open Source</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -314,6 +357,97 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
   </div>
 </section>
 
+<!-- INTERACTIVE ENGINEERING WORKBENCH -->
+<section id="workbench">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+      <div>
+        <div class="eyebrow reveal">// live interactive simulations</div>
+        <h2 class="title reveal" style="margin-bottom:0">Interactive Engineering Workbench</h2>
+      </div>
+      <div class="reveal" style="color:var(--muted);font-size:0.85rem;font-family:'JetBrains Mono'">
+        <i class="fas fa-terminal"></i> In-browser signal processing &amp; test executive
+      </div>
+    </div>
+
+    <div class="demo-grid">
+      <!-- Demo 1: EdgeVibe-Pro Live DSP Canvas -->
+      <div class="demo-card glass reveal">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem">
+          <span class="badge" style="margin:0"><i class="fas fa-wave-square"></i> EdgeVibe-Pro &middot; DSP &amp; ISO 10816</span>
+          <span id="demoIsoBadge" class="iso-badge zone-a">ZONE A &middot; OPTIMAL</span>
+        </div>
+        <h3 style="font-family:'Space Grotesk';font-size:1.25rem;margin-bottom:.5rem">Live Vibration &amp; FFT Spectral Monitor</h3>
+        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem">
+          Simulated 1000 Hz 4-channel edge telemetry. Toggle machine operating states to observe impulsive bearing shockwaves, Kurtosis spikes, and ISO alarm interlocks:
+        </p>
+
+        <!-- Interactive State Toggles -->
+        <div style="display:flex;gap:.5rem;margin-bottom:.9rem;flex-wrap:wrap">
+          <button id="btnNormal" class="btn-demo active" onclick="setVibeState('normal')">
+            <i class="fas fa-circle-check"></i> Normal (Zone A)
+          </button>
+          <button id="btnFault" class="btn-demo" onclick="setVibeState('fault')">
+            <i class="fas fa-triangle-exclamation"></i> Bearing Fault (Zone D Trip)
+          </button>
+        </div>
+
+        <!-- Live Canvas Visualizer -->
+        <div style="background:#090d18;border-radius:12px;padding:8px;border:1px solid var(--border);position:relative">
+          <canvas id="vibeCanvas" width="460" height="135" style="width:100%;height:135px;display:block"></canvas>
+        </div>
+
+        <!-- Live Telemetry HUD -->
+        <div class="vibe-hud">
+          <div><span class="hud-lbl">RMS Velocity</span><b id="hudRms">0.59 mm/s</b></div>
+          <div><span class="hud-lbl">Kurtosis</span><b id="hudKurt">1.94 (Nominal)</b></div>
+          <div><span class="hud-lbl">Dominant Peak</span><b id="hudPeak">29.3 Hz</b></div>
+          <div><span class="hud-lbl">Relay Interlock</span><b id="hudRelay" style="color:#10b981">ARMED &amp; CLOSED</b></div>
+        </div>
+
+        <div style="margin-top:1.2rem">
+          <a href="https://github.com/kiran10299/EdgeVibe-Pro" target="_blank" class="btn btn-ghost" style="font-size:0.82rem;padding:.45rem .85rem">
+            <i class="fab fa-github"></i> View EdgeVibe-Pro Source
+          </a>
+        </div>
+      </div>
+
+      <!-- Demo 2: OpenATE Compliance Certificate Inspector -->
+      <div class="demo-card glass reveal">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem">
+          <span class="badge" style="margin:0"><i class="fas fa-microchip"></i> OpenATE-Engine &middot; HAL &amp; TestStand</span>
+          <span class="iso-badge zone-a">VERDICT: PASSED</span>
+        </div>
+        <h3 style="font-family:'Space Grotesk';font-size:1.25rem;margin-bottom:.5rem">Automated Test Certificate Inspector</h3>
+        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem">
+          Simulated 8-step PDU DC-DC Converter qualification run using Keysight SCPI HAL drivers, dynamic limits, and SQLite datalogging.
+        </p>
+
+        <!-- Mini Preview Table -->
+        <div style="background:#090d18;border-radius:12px;padding:12px;border:1px solid var(--border);margin-bottom:1rem;font-family:'JetBrains Mono';font-size:0.8rem">
+          <div style="display:flex;justify-content:space-between;border-bottom:1px solid var(--border);padding-bottom:6px;margin-bottom:6px;color:var(--muted);font-size:0.75rem">
+            <span>QUALIFICATION STEP</span><span>MEASURED</span><span>VERDICT</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Ground_Bonding_Resistance</span><span style="color:#7dd3fc">0.1798 &Omega;</span><span style="color:#10b981">[PASS]</span></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Input_Rail_12V_Setup</span><span style="color:#7dd3fc">11.9548 V</span><span style="color:#10b981">[PASS]</span></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Standby_Quiescent_Current</span><span style="color:#7dd3fc">19.1001 mA</span><span style="color:#10b981">[PASS]</span></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span>5V_Rail_Ripple_Noise_Vpp</span><span style="color:#7dd3fc">37.3537 mV</span><span style="color:#10b981">[PASS]</span></div>
+          <div style="display:flex;justify-content:space-between;padding:3px 0"><span>Power_Conversion_Efficiency</span><span style="color:#7dd3fc">90.5374 %</span><span style="color:#10b981">[PASS]</span></div>
+        </div>
+
+        <div style="margin-top:auto;display:flex;gap:.8rem;align-items:center;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="openAteModal()" style="font-size:0.85rem;padding:.45rem .95rem">
+            <i class="fas fa-file-invoice"></i> Inspect Full Certificate (8 Steps)
+          </button>
+          <a href="https://github.com/kiran10299/OpenATE-Engine" target="_blank" class="btn btn-ghost" style="font-size:0.85rem;padding:.45rem .95rem">
+            <i class="fab fa-github"></i> View HAL Engine
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- OPEN SOURCE -->
 <section id="opensource">
   <div class="wrap">
@@ -331,6 +465,16 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
         </a>
       </div>
     </div>
+
+    <!-- Category Filter Buttons -->
+    <div class="repo-filters reveal" id="repoFilters">
+      <button class="filter-btn active" data-cat="all" onclick="filterRepos('all')">All (<span id="countAll">9</span>)</button>
+      <button class="filter-btn" data-cat="test" onclick="filterRepos('test')"><i class="fas fa-gauge-high"></i> Test &amp; Measurement</button>
+      <button class="filter-btn" data-cat="robotics" onclick="filterRepos('robotics')"><i class="fas fa-robot"></i> Robotics &amp; ROS</button>
+      <button class="filter-btn" data-cat="vision" onclick="filterRepos('vision')"><i class="fas fa-eye"></i> Computer Vision &amp; AI</button>
+      <button class="filter-btn" data-cat="tools" onclick="filterRepos('tools')"><i class="fas fa-screwdriver-wrench"></i> Automation &amp; Tools</button>
+    </div>
+
     <div class="repo-scroll-wrapper">
       <div class="grid" id="repoGrid"><p style="color:var(--muted)">Loading repositories…</p></div>
     </div>
@@ -350,45 +494,63 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
       </div>
     </div>
     
-    <div class="blog-featured glass reveal">
-      <div class="blog-badge"><i class="fas fa-microscope"></i> Featured Case Study &middot; Tribology &amp; AI</div>
-      <div class="blog-meta">
-        <span><i class="far fa-calendar-alt"></i> October 9, 2026</span>
-        <span><i class="far fa-clock"></i> 10 min read</span>
-        <span><i class="fas fa-user-pen"></i> By Kiran Shivakumar</span>
-      </div>
-      <h3 class="blog-title"><a href="blog-wear-scar-yolo-labview.html">Wear Scar Detection with YOLO, Python and LabVIEW</a></h3>
-      <p class="blog-desc">
-        How I automated optical wear scar measurement on test specimens using custom YOLOv5 models, background PyQt5 camera daemons, and LabVIEW binary TCP sequencing &mdash; replacing subjective manual optical measurements with a repeatable sub-micrometre machine vision pipeline.
-      </p>
-      
-      <div class="blog-flow">
-        <div class="flow-step"><span>1</span> Video Stream (PyQt5)</div>
-        <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-        <div class="flow-step"><span>2</span> YOLOv5 Boundary (best.pt)</div>
-        <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-        <div class="flow-step"><span>3</span> Optical Calibration (&mu;m/px)</div>
-        <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-        <div class="flow-step"><span>4</span> LabVIEW Binary TCP Sequencer</div>
+    <div class="blog-grid">
+      <!-- Article 1: Wear Scar Detection with YOLO & LabVIEW -->
+      <div class="blog-featured glass reveal" style="margin-top:0">
+        <div class="blog-badge"><i class="fas fa-microscope"></i> Case Study &middot; Tribology &amp; AI</div>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> October 9, 2026</span>
+          <span><i class="far fa-clock"></i> 10 min read</span>
+        </div>
+        <h3 class="blog-title"><a href="blog-wear-scar-yolo-labview.html">Wear Scar Detection with YOLO, Python and LabVIEW</a></h3>
+        <p class="blog-desc">
+          Automating optical wear scar measurement on test specimens using custom YOLOv5 models, background PyQt5 camera daemons, and LabVIEW binary TCP sequencing &mdash; replacing subjective manual optical measurements with a repeatable sub-micrometre machine vision pipeline.
+        </p>
+        
+        <div class="blog-tags">
+          <span class="tag v">Computer Vision</span>
+          <span class="tag v">YOLOv5</span>
+          <span class="tag">PyQt5</span>
+          <span class="tag">OpenCV DirectShow</span>
+          <span class="tag">LabVIEW</span>
+          <span class="tag">TCP/IP Protocol</span>
+        </div>
+
+        <div class="blog-footer">
+          <a href="blog-wear-scar-yolo-labview.html" class="btn btn-primary" style="font-size:0.85rem">
+            <i class="fas fa-book-open"></i> Read Full Article (12 Pages)
+          </a>
+        </div>
       </div>
 
-      <div class="blog-tags">
-        <span class="tag v">Computer Vision</span>
-        <span class="tag v">YOLOv5</span>
-        <span class="tag">PyQt5</span>
-        <span class="tag">OpenCV DirectShow</span>
-        <span class="tag">LabVIEW</span>
-        <span class="tag">TCP/IP Protocol</span>
-        <span class="tag">Tribology DAQ</span>
-      </div>
+      <!-- Article 2: Hardware Abstraction Layer for Mixed-Vendor Test Systems -->
+      <div class="blog-featured glass reveal" style="margin-top:0">
+        <div class="blog-badge" style="background:rgba(167,139,250,.12);color:#c084fc;border-color:rgba(167,139,250,.25)">
+          <i class="fas fa-microchip"></i> Architectural Guide &middot; ATE &amp; HAL
+        </div>
+        <div class="blog-meta">
+          <span><i class="far fa-calendar-alt"></i> October 10, 2026</span>
+          <span><i class="far fa-clock"></i> 11 min read</span>
+        </div>
+        <h3 class="blog-title"><a href="blog-hal-mixed-vendor-ate.html">Designing a Hardware Abstraction Layer (HAL) for Mixed-Vendor Test Systems</a></h3>
+        <p class="blog-desc">
+          How to eliminate vendor lock-in and instrument obsolescence by decoupling test sequences from Keysight, Keithley, and Modbus hardware through abstract base interfaces, dynamic dependency injection, and zero-hardware simulation.
+        </p>
+        
+        <div class="blog-tags">
+          <span class="tag c">Test Automation</span>
+          <span class="tag v">Hardware Abstraction</span>
+          <span class="tag">SCPI &amp; VISA</span>
+          <span class="tag">Modbus</span>
+          <span class="tag">LabVIEW OOP</span>
+          <span class="tag">Python</span>
+        </div>
 
-      <div class="blog-footer">
-        <a href="blog-wear-scar-yolo-labview.html" class="btn btn-primary">
-          <i class="fas fa-book-open"></i> Read Full Article (12 Pages)
-        </a>
-        <a href="https://github.com/kiran10299" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
-          <i class="fab fa-github"></i> Visit GitHub Profile
-        </a>
+        <div class="blog-footer">
+          <a href="blog-hal-mixed-vendor-ate.html" class="btn btn-primary" style="font-size:0.85rem">
+            <i class="fas fa-book-open"></i> Read Full Article (11 min read)
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -478,8 +640,34 @@ function renderClients(){
      <div class="tags">${p.hw.map(h=>`<span class="tag v">${h}</span>`).join('')}</div>
    </div>`).join('');
 }
+let allReposList = [];
+let currentCategory = 'all';
+
+function getRepoCategory(r) {
+  const name = (r.name || '').toLowerCase();
+  const top = (r.topics || []).join(' ').toLowerCase();
+  if (name.includes('ate') || name.includes('edgevibe') || name.includes('labview') || top.includes('ate') || top.includes('daq') || top.includes('vibration') || top.includes('labview')) return 'test';
+  if (name.includes('slam') || top.includes('robotics') || top.includes('slam') || top.includes('ros')) return 'robotics';
+  if (name.includes('posture') || name.includes('speed') || name.includes('gesture') || top.includes('vision') || top.includes('opencv') || top.includes('mediapipe')) return 'vision';
+  return 'tools';
+}
+
+function filterRepos(cat) {
+  currentCategory = cat;
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === cat);
+  });
+  const filtered = cat === 'all' ? allReposList : allReposList.filter(r => getRepoCategory(r) === cat);
+  renderRepos(filtered);
+}
+
 function renderRepos(list){
-  document.getElementById('repoGrid').innerHTML=list.map(r=>`
+  const grid = document.getElementById('repoGrid');
+  if(!list || !list.length){
+    grid.innerHTML = '<p style="color:var(--muted);grid-column:1/-1;text-align:center;padding:2rem">No repositories in this category.</p>';
+    return;
+  }
+  grid.innerHTML=list.map(r=>`
    <div class="card glass reveal show"><span class="glow"></span><i class="fab fa-github icon"></i>
      <div class="client"><i class="fas fa-code-branch"></i>${esc(r.language||'Open Source')}</div>
      <h3><a href="${esc(r.html_url)}" target="_blank" rel="noopener noreferrer">${esc(r.name.replace(/-/g,' '))}</a></h3>
@@ -493,19 +681,21 @@ function renderRepos(list){
    </div>`).join('');
   attachGlow();
 }
+
 async function loadRepos(){
   try{
     const res=await fetch('https://api.github.com/users/kiran10299/repos?sort=updated&per_page=100');
     if(!res.ok) throw 0;
     const data=(await res.json()).filter(r=>!r.fork&&r.name!=='kiran10299');
-    const countEl=document.getElementById('repoTotal');
-    if(countEl) countEl.innerHTML=`<b>${data.length}</b> repositories &middot; Scroll to explore`;
-    renderRepos(data.length?data:fallbackRepos);
+    allReposList = data.length ? data : fallbackRepos;
   }catch(e){
-    const countEl=document.getElementById('repoTotal');
-    if(countEl) countEl.innerHTML=`<b>${fallbackRepos.length}</b> repositories`;
-    renderRepos(fallbackRepos);
+    allReposList = fallbackRepos;
   }
+  const countEl=document.getElementById('repoTotal');
+  if(countEl) countEl.innerHTML=`<b>${allReposList.length}</b> repositories &middot; Scroll to explore`;
+  const countAll=document.getElementById('countAll');
+  if(countAll) countAll.textContent = allReposList.length;
+  filterRepos(currentCategory);
 }
 
 /* ---------- typing effect ---------- */
@@ -565,7 +755,170 @@ document.getElementById('menuBtn').onclick=()=>document.getElementById('menu').c
 document.querySelectorAll('#menu a').forEach(a=>a.onclick=()=>document.getElementById('menu').classList.remove('open'));
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-size();draw();renderClients();observe();attachGlow();loadRepos();
+/* ---------- live vibration simulation canvas ---------- */
+let vibeState = 'normal';
+let vibePhase = 0;
+
+function setVibeState(state) {
+  vibeState = state;
+  const btnN = document.getElementById('btnNormal');
+  const btnF = document.getElementById('btnFault');
+  if(btnN) btnN.classList.toggle('active', state === 'normal');
+  if(btnF) btnF.classList.toggle('active', state === 'fault');
+
+  const badge = document.getElementById('demoIsoBadge');
+  const hudRms = document.getElementById('hudRms');
+  const hudKurt = document.getElementById('hudKurt');
+  const hudPeak = document.getElementById('hudPeak');
+  const hudRelay = document.getElementById('hudRelay');
+
+  if (state === 'normal') {
+    if(badge){ badge.className = 'iso-badge zone-a'; badge.textContent = 'ZONE A · OPTIMAL'; }
+    if(hudRms) hudRms.textContent = '0.59 mm/s';
+    if(hudKurt) hudKurt.textContent = '1.94 (Nominal)';
+    if(hudPeak) hudPeak.textContent = '29.3 Hz';
+    if(hudRelay){ hudRelay.textContent = 'ARMED & CLOSED'; hudRelay.style.color = '#10b981'; }
+  } else {
+    if(badge){ badge.className = 'iso-badge zone-d'; badge.textContent = 'ZONE D · CRITICAL TRIP'; }
+    if(hudRms) hudRms.textContent = '5.18 mm/s';
+    if(hudKurt) hudKurt.textContent = '6.42 (Impulsive Spall)';
+    if(hudPeak) hudPeak.textContent = '148.6 Hz (BPFI)';
+    if(hudRelay){ hudRelay.textContent = 'TRIPPED & OPEN'; hudRelay.style.color = '#f87171'; }
+  }
+}
+
+function initVibeCanvas() {
+  const canvas = document.getElementById('vibeCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  function renderVibe() {
+    vibePhase += 0.08;
+    ctx.fillStyle = '#090d18';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const w = canvas.width;
+    const h = canvas.height;
+    const midY = h / 2;
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, midY); ctx.lineTo(w, midY);
+    ctx.moveTo(w * 0.65, 0); ctx.lineTo(w * 0.65, h);
+    ctx.stroke();
+
+    const waveW = w * 0.65;
+    ctx.strokeStyle = vibeState === 'normal' ? '#22d3ee' : '#f87171';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+
+    for (let x = 0; x < waveW; x++) {
+      const t = x * 0.05 + vibePhase;
+      let yVal = Math.sin(t) * 14 + Math.sin(t * 2.3) * 6;
+      if (vibeState === 'fault') {
+        const shock = Math.sin(t * 0.6);
+        if (shock > 0.82) yVal += (Math.random() - 0.5) * 55;
+        yVal += (Math.random() - 0.5) * 12;
+      } else {
+        yVal += (Math.random() - 0.5) * 3;
+      }
+      const y = midY + yVal;
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+
+    ctx.fillStyle = '#94a3b8';
+    ctx.font = '9px "JetBrains Mono"';
+    ctx.fillText('TIME DOMAIN (g)', 8, 14);
+
+    ctx.fillText('FFT SPECTRUM (Hz)', waveW + 8, 14);
+    const fftX = waveW + 10;
+    const fftW = w - fftX - 10;
+    const numBars = 7;
+    const barW = (fftW / numBars) - 4;
+
+    const normalHeights = [0.3, 0.95, 0.2, 0.15, 0.1, 0.08, 0.05];
+    const faultHeights = [0.25, 0.6, 0.45, 0.85, 0.95, 0.7, 0.5];
+    const heights = vibeState === 'normal' ? normalHeights : faultHeights;
+
+    for (let i = 0; i < numBars; i++) {
+      const bx = fftX + i * (barW + 4);
+      const bHeight = heights[i] * (h - 35) + (Math.random() * 4);
+      const by = h - 8 - bHeight;
+      ctx.fillStyle = vibeState === 'normal' ? 'rgba(34,211,238,0.75)' : 'rgba(248,113,113,0.85)';
+      ctx.fillRect(bx, by, barW, bHeight);
+    }
+
+    requestAnimationFrame(renderVibe);
+  }
+  requestAnimationFrame(renderVibe);
+}
+
+function openAteModal() {
+  document.getElementById('ateModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeAteModal() {
+  document.getElementById('ateModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+size();draw();renderClients();observe();attachGlow();loadRepos();initVibeCanvas();
 </script>
+
+<!-- ATE CERTIFICATE INSPECTION MODAL -->
+<div class="modal-backdrop" id="ateModal" onclick="if(event.target===this)closeAteModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAteModal()"><i class="fas fa-xmark"></i></button>
+    <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem;border-bottom:1px solid var(--border);padding-bottom:1rem">
+      <div style="width:40px;height:40px;border-radius:10px;background:rgba(56,189,248,.15);color:#38bdf8;display:grid;place-items:center;font-size:1.2rem">
+        <i class="fas fa-certificate"></i>
+      </div>
+      <div>
+        <h3 style="font-family:'Space Grotesk';font-size:1.3rem;margin:0">OpenATE Test Executive Compliance Certificate</h3>
+        <span style="font-family:'JetBrains Mono';font-size:0.8rem;color:var(--muted)">Sequence: PDU_DC_DC_Converter_Full_Qualification &middot; Run ID #3</span>
+      </div>
+    </div>
+
+    <!-- Metadata HUD -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.8rem;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1.4rem;font-family:'JetBrains Mono';font-size:0.8rem">
+      <div><span style="color:var(--muted);font-size:0.7rem;display:block">UUT SERIAL NUMBER</span><b>UUT-PDU-2026-9904</b></div>
+      <div><span style="color:var(--muted);font-size:0.7rem;display:block">FINAL VERDICT</span><b style="color:#10b981">PASSED (8/8)</b></div>
+      <div><span style="color:var(--muted);font-size:0.7rem;display:block">EXECUTION DURATION</span><b>0.275 Seconds</b></div>
+      <div><span style="color:var(--muted);font-size:0.7rem;display:block">STATION OPERATOR</span><b>AutoExec / CI_TestStand</b></div>
+    </div>
+
+    <!-- Full Qualification Table -->
+    <div style="overflow-x:auto;border:1px solid var(--border);border-radius:10px;margin-bottom:1.5rem">
+      <table style="width:100%;font-size:0.85rem">
+        <thead>
+          <tr style="background:rgba(255,255,255,.04);text-align:left;color:var(--c1);font-family:'JetBrains Mono';font-size:0.78rem">
+            <th style="padding:.7rem 1rem">STEP NAME</th>
+            <th style="padding:.7rem 1rem">MEASURED</th>
+            <th style="padding:.7rem 1rem">LIMIT TOLERANCES</th>
+            <th style="padding:.7rem 1rem">STATUS</th>
+          </tr>
+        </thead>
+        <tbody style="font-family:'JetBrains Mono'">
+          <tr style="border-bottom:1px solid rgba(255,255,255,.05)"><td style="padding:.6rem 1rem">Ground_Bonding_Resistance</td><td style="padding:.6rem 1rem;color:#7dd3fc">0.1798 &Omega;</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 0.0 &amp; &lt;= 0.5 &Omega;</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.05)"><td style="padding:.6rem 1rem">Input_Rail_Voltage_Setup</td><td style="padding:.6rem 1rem;color:#7dd3fc">11.9548 V</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 11.8 &amp; &lt;= 12.2 V</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.05)"><td style="padding:.6rem 1rem">Standby_Quiescent_Current</td><td style="padding:.6rem 1rem;color:#7dd3fc">19.1001 mA</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 5.0 &amp; &lt;= 35.0 mA</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.05)"><td style="padding:.6rem 1rem">Regulated_5V_Logic_Rail</td><td style="padding:.6rem 1rem;color:#7dd3fc">5.0183 V</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 4.9 &amp; &lt;= 5.1 V</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.05)"><td style="padding:.6rem 1rem">Regulated_3.3V_MCU_Rail</td><td style="padding:.6rem 1rem;color:#7dd3fc">3.3090 V</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 3.25 &amp; &lt;= 3.35 V</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.05)"><td style="padding:.6rem 1rem">5V_Rail_Ripple_Noise_Vpp</td><td style="padding:.6rem 1rem;color:#7dd3fc">37.3537 mV</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 0.0 &amp; &lt;= 60.0 mV</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+          <tr style="border-bottom:1px solid rgba(255,255,255,.05)"><td style="padding:.6rem 1rem">Switching_Frequency_PWM</td><td style="padding:.6rem 1rem;color:#7dd3fc">500.2436 kHz</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 485.0 &amp; &lt;= 515.0 kHz</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+          <tr><td style="padding:.6rem 1rem">Power_Conversion_Efficiency</td><td style="padding:.6rem 1rem;color:#7dd3fc">90.5374 %</td><td style="padding:.6rem 1rem;color:var(--muted)">&gt;= 85.0 &amp; &lt;= 98.0 %</td><td style="padding:.6rem 1rem;color:#10b981"><i class="fas fa-check-circle"></i> PASS</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <span style="font-size:0.8rem;color:var(--muted)"><i class="fas fa-database"></i> Committed to local SQLite run database (<code>open_ate_results.db</code>)</span>
+      <button class="btn btn-ghost" onclick="closeAteModal()" style="font-size:0.85rem;padding:.4rem 1rem">Close Preview</button>
+    </div>
+  </div>
+</div>
 </body>
 </html>
