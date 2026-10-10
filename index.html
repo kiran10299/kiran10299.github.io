@@ -182,6 +182,15 @@ section{padding:6rem 6vw;position:relative}
 .vibe-hud div{background:rgba(7,11,22,.65);padding:.55rem .75rem;border-radius:8px;border:1px solid var(--border);display:flex;flex-direction:column;gap:2px}
 .hud-lbl{font-size:.68rem;color:var(--muted);font-family:'Inter',sans-serif}
 
+/* crew companion animations */
+.animated-bob{animation:charBob 3.2s ease-in-out infinite}
+@keyframes charBob{0%,100%{transform:translateY(0) rotate(0deg)} 50%{transform:translateY(-8px) rotate(1.5deg)}}
+.crew-glow{position:absolute;width:80px;height:80px;border-radius:50%;filter:blur(22px);opacity:.45;pointer-events:none;transition:background .4s}
+.luffy-glow{background:#ef4444}
+.zoro-glow{background:#10b981}
+.sanji-glow{background:#f59e0b}
+.speech-bubble::before{content:'';position:absolute;left:-8px;top:22px;border-width:6px 8px 6px 0;border-style:solid;border-color:transparent rgba(56,189,248,.3) transparent transparent;display:block;width:0}
+
 /* repo category filters */
 .repo-filters{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.2rem}
 .filter-btn{background:rgba(255,255,255,.04);border:1px solid var(--border);color:var(--muted);padding:.35rem .85rem;border-radius:99px;font-size:.82rem;cursor:pointer;transition:.2s;font-family:'Inter',sans-serif}
@@ -441,6 +450,75 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
           </button>
           <a href="https://github.com/kiran10299/OpenATE-Engine" target="_blank" class="btn btn-ghost" style="font-size:0.85rem;padding:.45rem .95rem">
             <i class="fab fa-github"></i> View HAL Engine
+          </a>
+        </div>
+      </div>
+
+      <!-- Demo 3: Straw Hat Reminders Animated Desktop Crew -->
+      <div class="demo-card glass reveal">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem">
+          <span class="badge" style="margin:0;background:rgba(239,68,68,.12);color:#f87171;border-color:rgba(239,68,68,.3)">
+            <i class="fas fa-skull"></i> Straw Hat Reminders &middot; Procedural Animation
+          </span>
+          <span id="crewRoleBadge" class="iso-badge" style="background:rgba(245,158,11,.15);color:#fbbf24;border-color:rgba(245,158,11,.35)">CAPTAIN &middot; GEAR 2</span>
+        </div>
+        <h3 style="font-family:'Space Grotesk';font-size:1.25rem;margin-bottom:.5rem">Interactive Desktop Crew Companion</h3>
+        <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem">
+          100% mathematical vector graphics (QPainter &amp; WinAPI Ctypes). Switch crew members to trigger live procedural animations, speech, and health reminders:
+        </p>
+
+        <!-- Character Selector -->
+        <div style="display:flex;gap:.5rem;margin-bottom:.9rem;flex-wrap:wrap">
+          <button id="btnCrewLuffy" class="btn-demo active" onclick="setCrewMember('luffy')">
+            👒 Luffy
+          </button>
+          <button id="btnCrewZoro" class="btn-demo" onclick="setCrewMember('zoro')">
+            ⚔️ Zoro
+          </button>
+          <button id="btnCrewSanji" class="btn-demo" onclick="setCrewMember('sanji')">
+            🍳 Sanji
+          </button>
+        </div>
+
+        <!-- Animated Stage Box -->
+        <div class="crew-stage" style="background:#090d18;border-radius:12px;padding:12px 14px;border:1px solid var(--border);position:relative;display:flex;align-items:center;gap:1.1rem;min-height:150px;overflow:hidden">
+          <!-- Character Display with Floating Animation -->
+          <div class="crew-char-wrapper" style="position:relative;width:95px;height:125px;flex-shrink:0;display:grid;place-items:center">
+            <div id="crewGlow" class="crew-glow luffy-glow"></div>
+            <img id="crewImg" src="luffy_preview.png" alt="Luffy" class="animated-bob" style="max-height:120px;max-width:90px;object-fit:contain;position:relative;z-index:2;filter:drop-shadow(0 6px 12px rgba(0,0,0,.7))" />
+          </div>
+
+          <!-- Dialogue Speech Bubble -->
+          <div class="speech-bubble" style="background:rgba(21,32,58,.8);border:1px solid rgba(56,189,248,.3);border-radius:12px;padding:.85rem 1rem;flex:1;position:relative;font-size:0.86rem;line-height:1.45">
+            <div style="display:flex;justify-content:space-between;margin-bottom:4px;flex-wrap:wrap;gap:4px">
+              <span id="crewName" style="font-family:'Space Grotesk';font-weight:700;color:#38bdf8;font-size:0.82rem">Monkey D. Luffy</span>
+              <span id="crewAction" style="font-family:'JetBrains Mono';color:var(--muted);font-size:0.72rem">[Hydration Alert]</span>
+            </div>
+            <p id="crewQuote" style="color:#e2e8f0;margin:0;font-style:italic">
+              "Oi! Drink water right now or I'll activate Busoshoku Haki and Gear Second! Gomu Gomu no Hydrate! 💧"
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Reminder Action Triggers -->
+        <div style="display:flex;gap:.4rem;margin-top:.8rem;flex-wrap:wrap">
+          <button class="btn-demo" onclick="triggerReminder('water')" style="font-size:0.75rem;padding:.28rem .6rem"><i class="fas fa-droplet" style="color:#38bdf8"></i> Water (30m)</button>
+          <button class="btn-demo" onclick="triggerReminder('stretch')" style="font-size:0.75rem;padding:.28rem .6rem"><i class="fas fa-person-walking" style="color:#10b981"></i> Stretch (60m)</button>
+          <button class="btn-demo" onclick="triggerReminder('eye')" style="font-size:0.75rem;padding:.28rem .6rem"><i class="fas fa-eye" style="color:#a855f7"></i> 20-20-20 Eye</button>
+          <button class="btn-demo" onclick="triggerReminder('lunch')" style="font-size:0.75rem;padding:.28rem .6rem"><i class="fas fa-utensils" style="color:#fbbf24"></i> Lunch (1:15PM)</button>
+        </div>
+
+        <!-- Telemetry HUD -->
+        <div class="vibe-hud" style="margin-top:.8rem">
+          <div><span class="hud-lbl">Engine</span><b>QPainter Vectors</b></div>
+          <div><span class="hud-lbl">Tracking</span><b>WinAPI Ctypes</b></div>
+          <div><span class="hud-lbl">Interactivity</span><b>Drag &amp; Drop / IPC</b></div>
+          <div><span class="hud-lbl">Footprint</span><b style="color:#10b981">Zero Image Assets</b></div>
+        </div>
+
+        <div style="margin-top:auto;padding-top:1.2rem;display:flex;gap:.8rem;align-items:center;flex-wrap:wrap">
+          <a href="https://github.com/kiran10299/Straw-Hat-Reminders" target="_blank" class="btn btn-ghost" style="font-size:0.82rem;padding:.45rem .85rem">
+            <i class="fab fa-github"></i> View Straw-Hat-Reminders Repo
           </a>
         </div>
       </div>
@@ -863,6 +941,93 @@ function openAteModal() {
 function closeAteModal() {
   document.getElementById('ateModal').classList.remove('open');
   document.body.style.overflow = '';
+}
+
+/* ---------- straw hat desktop crew companion ---------- */
+const crewData = {
+  luffy: {
+    name: 'Monkey D. Luffy',
+    role: 'CAPTAIN · GEAR 2',
+    img: 'luffy_preview.png',
+    glowClass: 'luffy-glow',
+    color: '#38bdf8',
+    action: '[Hydration Alert]',
+    quote: '"Oi! Drink water right now or I\'ll activate Busoshoku Haki and Gear Second! Gomu Gomu no Hydrate! 💧"'
+  },
+  zoro: {
+    name: 'Roronoa Zoro',
+    role: 'SWORDSMAN · LOST',
+    img: 'zoro_preview.png',
+    glowClass: 'zoro-glow',
+    color: '#10b981',
+    action: '[Wandering / Stretch]',
+    quote: '"Hey, which way is the desktop boundary? The screen rotated on me! Time to do 500 push-ups and stretch! ⚔️"'
+  },
+  sanji: {
+    name: 'Sanji (Stealth Black)',
+    role: 'COOK · MELLORINE',
+    img: 'sanji_preview.png',
+    glowClass: 'sanji-glow',
+    color: '#fbbf24',
+    action: '[1:15 PM Lunch Break]',
+    quote: '"Lunch is served! Carrying a 5-star nutritional feast across your screen. You can\'t engineer without fuel! 🍳"'
+  }
+};
+
+let currentCrew = 'luffy';
+
+function setCrewMember(member) {
+  currentCrew = member;
+  ['Luffy', 'Zoro', 'Sanji'].forEach(c => {
+    const btn = document.getElementById('btnCrew' + c);
+    if(btn) btn.classList.toggle('active', c.toLowerCase() === member);
+  });
+  const data = crewData[member];
+  if(!data) return;
+
+  const img = document.getElementById('crewImg');
+  const glow = document.getElementById('crewGlow');
+  const roleBadge = document.getElementById('crewRoleBadge');
+  const nameEl = document.getElementById('crewName');
+  const actionEl = document.getElementById('crewAction');
+  const quoteEl = document.getElementById('crewQuote');
+
+  if(img) {
+    img.src = data.img;
+    img.alt = data.name;
+  }
+  if(glow) glow.className = 'crew-glow ' + data.glowClass;
+  if(roleBadge) roleBadge.textContent = data.role;
+  if(nameEl) {
+    nameEl.textContent = data.name;
+    nameEl.style.color = data.color;
+  }
+  if(actionEl) actionEl.textContent = data.action;
+  if(quoteEl) quoteEl.textContent = data.quote;
+}
+
+function triggerReminder(type) {
+  const quoteEl = document.getElementById('crewQuote');
+  const actionEl = document.getElementById('crewAction');
+  if(!quoteEl || !actionEl) return;
+
+  if(type === 'water') {
+    setCrewMember('luffy');
+    actionEl.textContent = '[Water Reminder · 30m Active]';
+    quoteEl.textContent = '"Gomu Gomu no Water Break! Hydrate your brain before debugging edge cases!" 💧';
+  } else if(type === 'stretch') {
+    setCrewMember('zoro');
+    actionEl.textContent = '[Ergonomic Stretch · 60m]';
+    quoteEl.textContent = '"Three-Sword Style: Spine Decompression! Stand up and stretch before your back turns to stone!" ⚔️';
+  } else if(type === 'eye') {
+    setCrewMember('luffy');
+    actionEl.textContent = '[20-20-20 Eye Rest Rule]';
+    quoteEl.textContent = '"Look at something 20 feet away for 20 seconds! Your Observation Haki won\'t work if your eyes get fatigued!" 👁️';
+  } else if(type === 'lunch') {
+    setCrewMember('sanji');
+    actionEl.textContent = '[Scheduled 1:15 PM Lunch]';
+    quoteEl.textContent = '"Step away from the keyboard! The cloche is lifted and gourmet nourishment is ready. Mellorine!" 🍖';
+  }
 }
 
 size();draw();renderClients();observe();attachGlow();loadRepos();initVibeCanvas();
