@@ -370,7 +370,7 @@ li::marker {
 
   <main>
     <h2>Professional Profile</h2>
-    <p class="summary">Dedicated Application Engineer with <b><span class="yrs">5+</span> years</b> of experience designing, developing, and deploying <b>LabVIEW-based Automated Test Equipment (ATE)</b> and Test &amp; Measurement systems for aerospace, space, nuclear, and power industries. Experienced with instrument control over SCPI/GPIB, multi-sensor data acquisition, and integrating <b>Python, ROS, and Computer Vision</b> for intelligent robotics and predictive monitoring.</p>
+    <p class="summary">Dedicated Application Engineer with <b><span class="yrs">5+</span> years</b> of experience designing and deploying production-grade <b>Automated Test Equipment (ATE)</b>, Hardware Abstraction Layers (HAL), and <b>ISO 10816-3 condition monitoring</b> across aerospace, defense, space, and energy sectors. Expert in multi-vendor instrument control (SCPI, VISA, Modbus), high-speed sensor DAQ, and integrating <b>Python, Computer Vision (YOLO/OpenCV), and ROS</b> to automate quality qualification and cut test cycle times.</p>
 
     <div class="hl">
       <div><b class="yrs">5+</b><small>Years Experience</small></div>
@@ -384,10 +384,10 @@ li::marker {
       <div class="jh"><h4>Application Engineer</h4><span class="date">Feb 2024 – Present</span></div>
       <div class="co">Ducom Aerospace Pvt Ltd · Bengaluru, India</div>
       <ul>
-        <li>Develop <b>LabVIEW-based software</b> for Test and Measurement related to Tribology testing systems.</li>
-        <li>Capture and analyze sensor data: <b>force, temperature, humidity, vibration, and acoustic emission</b>.</li>
-        <li>Build Computer Vision pipelines for image processing, annotation, segmentation, facial detection, and tracking human movement for surveillance using <b>YOLO, OpenCV, and DeepSORT</b>.</li>
-        <li>Develop robotic mapping and live video visualization for a land platform using <b>ROS, Gazebo, and SLAM</b>.</li>
+        <li>Architect <b>LabVIEW &amp; Python ATE/DAQ systems</b> for tribology test benches, acquiring multi-channel sensor data (force, temperature, vibration, acoustic emission) at up to <b>10 kHz</b>.</li>
+        <li>Built an automated <b>wear scar optical measurement system</b> using custom <b>YOLOv5</b>, PyQt5 daemon, and LabVIEW TCP sequencing—cutting inspection cycle time by <b>85%</b>.</li>
+        <li>Implemented real-time vibration feature DSP (RMS, Kurtosis, Crest factor, FFT) conforming to <b>ISO 10816-3</b> for predictive health monitoring and automated safety trips.</li>
+        <li>Developed autonomous platform mapping, obstacle detection, and live telemetry HUD using <b>ROS, Gazebo, and SLAM</b>.</li>
       </ul>
       <div class="tech"><b>Tech:</b> LabVIEW, Python, OpenCV, TensorFlow, MediaPipe, YOLO, DeepSORT, ROS, Gazebo, RViz, SLAM</div>
     </div>
@@ -396,10 +396,10 @@ li::marker {
       <div class="jh"><h4>LabVIEW Developer</h4><span class="date">Sep 2021 – Jan 2024</span></div>
       <div class="co">Access Automation Pvt Ltd · Bengaluru, India</div>
       <ul>
-        <li>Architected and delivered <b>7+ automated test &amp; DAQ systems</b> for premier clients including <b>ISRO (SAC), NPCIL, Tata Power, LG India</b>, GACL, Electrohms, and Oman Fiber Optics.</li>
-        <li>Interfaced laboratory instrumentation from Keysight, Yokogawa, HIOKI, Anritsu, and EXFO with Mitsubishi FX5U PLCs.</li>
-        <li>Developed automated test sequences, remote monitoring dashboards, and compliance report generators.</li>
-        <li>Delivered continuous optimization recommendations and engineered product innovations.</li>
+        <li>Delivered <b>7+ turnkey automated test &amp; DAQ systems</b> for premier clients including <b>ISRO (SAC), NPCIL, Tata Power, and LG India</b> with 100% on-time qualification sign-offs.</li>
+        <li>Engineered modular <b>Hardware Abstraction Layers (HAL)</b> for SCPI/VISA, GPIB, and Modbus RTU/TCP across Keysight, Yokogawa, HIOKI, and Anritsu instruments.</li>
+        <li>Built automated test sequences with real-time parametric limit compliance, SQLite datalogging, and automated compliance certificates (HTML/CSV).</li>
+        <li>Interfaced laboratory instrumentation with Mitsubishi FX5U PLCs and Advantech ADAM modules for safety interlocks.</li>
       </ul>
       <div class="tech"><b>Tech:</b> LabVIEW, ATE, DAQ, SCPI, GPIB, Modbus, RS-485, PLC, Report Generation</div>
     </div>
@@ -446,7 +446,9 @@ li::marker {
     <h3>Communication Protocols</h3>
     <div class="chips">
       <span class="chip">SCPI Commands</span>
+      <span class="chip">PyVISA / HAL</span>
       <span class="chip">GPIB Interface</span>
+      <span class="chip">ISO 10816-3 DSP</span>
       <span class="chip">RS-485 Serial</span>
       <span class="chip">RS-232 Serial</span>
       <span class="chip">Modbus Protocol</span>
@@ -516,23 +518,23 @@ li::marker {
     <h2 style="margin-top: 4mm;">Featured Open-Source Projects</h2>
     <div class="os">
       <div>
+        <b>OpenATE-Engine</b>
+        <p>Enterprise Python ATE framework with SCPI/VISA Hardware Abstraction (HAL), parametric limits, SQLite logs &amp; HTML reports.</p>
+        <a href="https://github.com/kiran10299/OpenATE-Engine" target="_blank">github.com/kiran10299/OpenATE-Engine</a>
+      </div>
+      <div>
+        <b>EdgeVibe-Pro</b>
+        <p>ISO 10816-3 multi-sensor edge vibration DAQ with zero-copy ring buffer, Crest/Kurtosis DSP, and Modbus TCP gateway.</p>
+        <a href="https://github.com/kiran10299/EdgeVibe-Pro" target="_blank">github.com/kiran10299/EdgeVibe-Pro</a>
+      </div>
+      <div>
         <b>LabVIEW ↔ Python AI Bridge</b>
         <p>Hybrid architecture streaming LabVIEW DAQ sensor arrays into Python ML for real-time predictive anomaly detection.</p>
         <a href="https://github.com/kiran10299/LabVIEW-Python-AI-Bridge" target="_blank">github.com/kiran10299/LabVIEW-Python-AI-Bridge</a>
       </div>
       <div>
-        <b>AI Hand-Gesture PC Controller</b>
-        <p>Computer Vision desktop app controlling mouse cursor, clicking, and air-scrolling via MediaPipe and OpenCV HUD.</p>
-        <a href="https://github.com/kiran10299/AI-Hand-Gesture-Controller" target="_blank">github.com/kiran10299/AI-Hand-Gesture-Controller</a>
-      </div>
-      <div>
-        <b>Desktop Super Tools</b>
-        <p>System productivity utilities featuring a background watchdog file sorter and global hotkey translucent dropdown notepad.</p>
-        <a href="https://github.com/kiran10299/Desktop-Super-Tools" target="_blank">github.com/kiran10299/Desktop-Super-Tools</a>
-      </div>
-      <div>
         <b>Straw-Hat Reminders</b>
-        <p>Procedural vector animated desktop companion running in system tray with active screen-time health monitoring.</p>
+        <p>Procedural vector animated companion in PyQt5 with Windows API ctypes idle tracking for active ergonomic screen-time health.</p>
         <a href="https://github.com/kiran10299/Straw-Hat-Reminders" target="_blank">github.com/kiran10299/Straw-Hat-Reminders</a>
       </div>
     </div>
