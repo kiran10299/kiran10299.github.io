@@ -233,7 +233,50 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
   nav ul li{padding:.8rem 0;border-bottom:1px solid var(--border)}
   .menu-btn{display:block}
 }
-</style>
+/* ===== UI POLISH v2 ===== */
+:root{--ease:cubic-bezier(.22,1,.36,1)}
+body::before{content:'';position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.05;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:100;box-shadow:0 0 12px var(--c2)}
+#spot{position:fixed;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:-1;background:radial-gradient(circle,rgba(34,211,238,.10),transparent 60%);transform:translate(-50%,-50%);transition:opacity .3s}
+nav ul a.active{color:var(--text)}
+nav ul a.active::after{width:100%}
+.badge i{color:var(--c1)}
+.hero h1{text-shadow:0 0 60px rgba(167,139,250,.25)}
+.hero::after{content:'';position:absolute;left:50%;bottom:2rem;width:22px;height:36px;border:2px solid var(--border);border-radius:14px;transform:translateX(-50%);background:radial-gradient(circle at 50% 25%,var(--c1) 3px,transparent 4px);animation:scrollhint 1.8s ease-in-out infinite}
+@keyframes scrollhint{50%{background-position:0 10px}}
+.hero{position:relative}
+.btn{position:relative;overflow:hidden}
+.btn-primary::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .7s var(--ease)}
+.btn-primary:hover::after{left:140%}
+.title{position:relative;display:inline-block}
+.title::after{content:'';display:block;height:4px;width:64px;margin-top:.7rem;border-radius:4px;background:var(--grad);transition:width .6s var(--ease)}
+.reveal.show .title::after,.title.show::after{width:120px}
+.glass{position:relative;transition:transform .45s var(--ease),border-color .35s,box-shadow .45s var(--ease),background .35s}
+.glass::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(167,139,250,.14),transparent 45%)}
+.glass:hover::after{opacity:1}
+.glass:hover{border-color:rgba(167,139,250,.35);box-shadow:0 24px 60px -24px rgba(34,211,238,.28)}
+.stat .num{background-size:200% auto}
+.stat{overflow:hidden}
+.stat::before{content:'';position:absolute;left:0;right:0;top:0;height:3px;background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .6s var(--ease)}
+.stat:hover::before{transform:scaleX(1)}
+.tl{transition:transform .4s var(--ease),border-color .3s}
+.tl:hover{transform:translateX(8px)}
+.tl::before{content:'';position:absolute;left:-2.05rem;top:2rem;width:14px;height:14px;border-radius:50%;background:var(--bg);border:3px solid var(--c1);box-shadow:0 0 0 5px rgba(34,211,238,.12),0 0 18px var(--c1)}
+.tl{position:relative}
+.tag{transition:transform .2s,background .2s,border-color .2s}
+.tag:hover{transform:translateY(-2px);background:rgba(34,211,238,.18);border-color:var(--c1)}
+.skill{padding:1.6rem}
+.skill .ic{width:46px;height:46px;display:grid;place-items:center;border-radius:14px;background:linear-gradient(135deg,rgba(34,211,238,.18),rgba(167,139,250,.18));margin-bottom:.9rem;font-size:1.15rem;color:var(--c1);transition:transform .4s var(--ease)}
+.skill:hover .ic{transform:rotate(-8deg) scale(1.12)}
+.skill h4{font-family:'Space Grotesk';margin-bottom:.2rem}
+.reveal{transition:opacity .8s var(--ease),transform .8s var(--ease)}
+#toTop{position:fixed;right:1.4rem;bottom:1.4rem;width:46px;height:46px;border-radius:14px;border:1px solid var(--border);background:rgba(12,18,34,.85);backdrop-filter:blur(10px);color:var(--c1);cursor:pointer;display:grid;place-items:center;opacity:0;pointer-events:none;transform:translateY(12px);transition:.35s var(--ease);z-index:60}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+#toTop:hover{border-color:var(--c1);box-shadow:0 0 24px -4px var(--c1)}
+.orbit .core{animation:glowpulse 4s ease-in-out infinite}
+@keyframes glowpulse{50%{box-shadow:0 0 110px 0 rgba(167,139,250,.5)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@media (hover:none){#spot{display:none}}</style>
 </head>
 <body>
 <canvas id="net"></canvas>
@@ -261,7 +304,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
 <header class="hero">
   <div class="hero-inner">
     <div>
-      <div class="badge"><span class="dot"></span> Open to new opportunities · Bengaluru, India</div>
+      <div class="badge"><i class="fas fa-location-dot"></i> Bengaluru, India</div>
       <h1>Hi, I'm <span class="grad">Kiran<br>Shivakumar</span></h1>
       <div class="typed" id="typed"></div>
       <p class="lead">Application Engineer building <strong>LabVIEW test &amp; measurement systems</strong> for aerospace, nuclear, power and space clients, and bringing in <strong>Python, ROS and computer vision</strong> on top of them.</p>
@@ -662,7 +705,7 @@ footer{text-align:center;padding:2rem;color:var(--muted);font-size:.85rem;border
       </div>
       <div class="edu glass reveal">
         <i class="fas fa-location-dot ic"></i>
-        <div><div class="eyebrow">Based in</div><h3 style="font-family:'Space Grotesk';font-size:1.3rem">Bengaluru, India</h3><div style="color:var(--muted)">Open to on-site, hybrid and remote roles</div></div>
+        <div><div class="eyebrow">Based in</div><h3 style="font-family:'Space Grotesk';font-size:1.3rem">Bengaluru, India</h3><div style="color:var(--muted)">Application Engineer · LabVIEW · Robotics</div></div>
       </div>
     </div>
     <div class="contact glass reveal" style="margin-top:1.4rem">
@@ -1087,5 +1130,19 @@ size();draw();renderClients();observe();attachGlow();loadRepos();initVibeCanvas(
     </div>
   </div>
 </div>
+<div id="progress"></div><div id="spot"></div>
+<button id="toTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+<script>
+(function(){
+  var bar=document.getElementById('progress'),top=document.getElementById('toTop'),spot=document.getElementById('spot');
+  function onScroll(){var h=document.documentElement,max=h.scrollHeight-h.clientHeight;bar.style.width=(max>0?h.scrollTop/max*100:0)+'%';top.classList.toggle('show',h.scrollTop>600)}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  top.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
+  addEventListener('mousemove',function(e){spot.style.left=e.clientX+'px';spot.style.top=e.clientY+'px';
+    var g=e.target.closest&&e.target.closest('.glass');if(g){var r=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-r.left)+'px');g.style.setProperty('--my',(e.clientY-r.top)+'px')}},{passive:true});
+  var links=[].slice.call(document.querySelectorAll('nav ul a[href^="#"]')),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
+  if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var i=secs.indexOf(en.target);links.forEach(function(l,j){l.classList.toggle('active',j===i)})}})},{rootMargin:'-45% 0px -50% 0px'});secs.forEach(function(s){s&&io.observe(s)})}
+})();
+</script>
 </body>
 </html>
