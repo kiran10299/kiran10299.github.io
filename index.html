@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<script>(function(){try{var s=localStorage.getItem("theme");var l=s?s==="light":matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.setAttribute("data-theme",l?"light":"dark")}catch(e){}})()</script>
+<script>(function(){try{var s=localStorage.getItem("theme");var l=s==="light";document.documentElement.setAttribute("data-theme",l?"light":"dark")}catch(e){}})()</script>
 <style>
 :root{
   --bg:#070b16; --bg2:#0c1222; --glass:rgba(255,255,255,.04); --border:rgba(255,255,255,.08);
@@ -52,7 +52,7 @@ nav ul a:hover::after{width:100%}
 .menu-btn{display:none;background:none;border:0;color:var(--text);font-size:1.4rem;cursor:pointer}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:0 6vw}
+.hero{min-height:min(90vh,760px);display:flex;align-items:center;padding:6.5rem 6vw 3.5rem}
 .hero-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.4fr 1fr;gap:3rem;align-items:center}
 .badge{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem 1rem;border:1px solid var(--border);border-radius:99px;background:var(--glass);font-size:.82rem;color:var(--muted);margin-bottom:1.5rem}
 .dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 0 #22c55e;animation:pulse 2s infinite}
@@ -78,9 +78,9 @@ nav ul a:hover::after{width:100%}
 .orbit{position:relative;width:340px;height:340px;margin:auto}
 .orbit .core{position:absolute;inset:90px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#1e293b,#0b1020);border:1px solid var(--border);display:grid;place-items:center;font-family:'Space Grotesk';font-size:3rem;font-weight:700;box-shadow:0 0 80px -10px rgba(34,211,238,.35)}
 .orbit .ring{position:absolute;inset:0;border:1px dashed rgba(255,255,255,.12);border-radius:50%;animation:spin 30s linear infinite}
-.orbit .ring.r2{inset:40px;animation-duration:20s;animation-direction:reverse}
+.orbit .ring.r2{inset:44px;border-style:solid;border-color:rgba(167,139,250,.16);animation:spin 30s linear infinite}
 .orbit .chip{position:absolute;padding:.45rem .8rem;border-radius:10px;background:rgba(12,18,34,.9);border:1px solid var(--border);font-size:.78rem;font-family:'JetBrains Mono';white-space:nowrap;animation:spin 30s linear infinite reverse}
-.orbit .r2 .chip{animation:spin 20s linear infinite}
+.orbit .r2 .chip{animation:spin 30s linear infinite reverse;border-color:rgba(167,139,250,.3)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* SECTIONS */
@@ -91,7 +91,7 @@ section{padding:6rem 6vw;position:relative}
 .glass{background:var(--glass);border:1px solid var(--border);border-radius:20px;backdrop-filter:blur(10px)}
 
 /* stats */
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:-3rem}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:0}
 .stat{padding:1.8rem;text-align:center;transition:.3s}
 .stat:hover{transform:translateY(-6px);border-color:rgba(34,211,238,.4)}
 .stat .num{font-family:'Space Grotesk';font-size:2.6rem;font-weight:700}
@@ -243,7 +243,7 @@ html[data-theme=light] .blob{opacity:.22}
 html[data-theme=light] #net{opacity:.55;filter:saturate(1.3) brightness(.7)}
 html[data-theme=light] #spot{background:radial-gradient(circle,rgba(124,58,237,.10),transparent 60%)}
 html[data-theme=light] nav.scrolled{background:rgba(245,247,252,.8)}
-html[data-theme=light] nav ul{background:rgba(245,247,252,.98)}
+html[data-theme=light] nav ul{background:rgba(245,247,252,.98)!important}
 html[data-theme=light] .glass{box-shadow:0 10px 30px -18px rgba(15,23,42,.25)}
 html[data-theme=light] .orbit .core{background:radial-gradient(circle at 30% 30%,#fff,#e6ecfb);box-shadow:0 0 70px -10px rgba(124,58,237,.35)}
 html[data-theme=light] .orbit .chip,html[data-theme=light] #toTop{background:rgba(255,255,255,.92);color:var(--text)}
@@ -266,7 +266,7 @@ body,nav,.glass,.btn,.tag{transition-property:background,color,border-color,box-
 html[data-theme=light] .theme-btn .fa-sun{transform:none;opacity:1}
 html[data-theme=light] .theme-btn .fa-moon{transform:translateY(-30px) rotate(90deg);opacity:0}
 /* tech marquee */
-.marquee{overflow:hidden;border-block:1px solid var(--border);background:var(--glass);padding:1rem 0;margin:0 0 1rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee{position:relative;z-index:1;clear:both;overflow:hidden;border-block:1px solid var(--border);background:var(--glass);padding:1rem 0;margin:0 0 1rem;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .marquee-track{display:flex;gap:2.6rem;width:max-content;animation:marq 38s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
 .marquee span{font-family:'JetBrains Mono';font-size:.85rem;color:var(--muted);white-space:nowrap;display:inline-flex;align-items:center;gap:.6rem}
@@ -291,7 +291,7 @@ nav ul a.active{color:var(--text)}
 nav ul a.active::after{width:100%}
 .badge i{color:var(--c1)}
 .hero h1{text-shadow:0 0 60px rgba(167,139,250,.25)}
-.hero::after{content:'';position:absolute;left:50%;bottom:2rem;width:22px;height:36px;border:2px solid var(--border);border-radius:14px;transform:translateX(-50%);background:radial-gradient(circle at 50% 25%,var(--c1) 3px,transparent 4px);animation:scrollhint 1.8s ease-in-out infinite}
+.hero::after{display:none;content:'';position:absolute;left:50%;bottom:2rem;width:22px;height:36px;border:2px solid var(--border);border-radius:14px;transform:translateX(-50%);background:radial-gradient(circle at 50% 25%,var(--c1) 3px,transparent 4px);animation:scrollhint 1.8s ease-in-out infinite}
 @keyframes scrollhint{50%{background-position:0 10px}}
 .hero{position:relative}
 .btn{position:relative;overflow:hidden}
@@ -325,7 +325,37 @@ nav ul a.active::after{width:100%}
 .orbit .core{animation:glowpulse 4s ease-in-out infinite}
 @keyframes glowpulse{50%{box-shadow:0 0 110px 0 rgba(167,139,250,.5)}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-@media (hover:none){#spot{display:none}}</style>
+@media (hover:none){#spot{display:none}}
+/* ===== EXTRA POLISH ===== */
+:focus-visible{outline:2px solid var(--c1);outline-offset:3px;border-radius:8px}
+.stats .stat:nth-child(2){transition-delay:.08s}.stats .stat:nth-child(3){transition-delay:.16s}.stats .stat:nth-child(4){transition-delay:.24s}
+.grid .card:nth-child(3n+2){transition-delay:.06s}.grid .card:nth-child(3n){transition-delay:.12s}
+footer,.footer{position:relative}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:linear-gradient(var(--c1),var(--c2));border-radius:10px;border:2px solid var(--bg)}
+/* ===== RESPONSIVE SAFETY ===== */
+nav{gap:1rem}
+nav ul{flex-wrap:nowrap}
+nav ul a{white-space:nowrap}
+@media(max-width:1180px){
+  nav ul{position:fixed;top:64px;right:0;left:0;flex-direction:column;gap:0;background:rgba(7,11,22,.97);display:none;padding:1rem 6vw;max-height:calc(100vh - 64px);overflow-y:auto}
+  nav ul.open{display:flex}
+  nav ul li{padding:.8rem 0;border-bottom:1px solid var(--border)}
+  .menu-btn{display:block}
+}
+@media(max-width:900px){.hero{padding-top:6rem;padding-bottom:3rem}.hero-inner,.about,.two{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){
+  section{padding:4rem 5vw}
+  .stats{grid-template-columns:1fr 1fr;gap:.8rem}
+  .stat{padding:1.1rem .6rem}
+  .grid{grid-template-columns:1fr}
+  .timeline{padding-left:1.6rem}
+  .tl::before{left:-1.55rem}
+  .tl-head{flex-direction:column}
+  .cta .btn{width:100%;justify-content:center}
+  #toTop{right:.8rem;bottom:.8rem}
+}
+.wrap,.hero-inner,.grid>*,.skills>*,.stats>*{min-width:0}
+h1,h2,h3,h4,p,li,.tag{overflow-wrap:anywhere}</style>
 </head>
 <body>
 <canvas id="net"></canvas>
@@ -370,14 +400,14 @@ nav ul a.active::after{width:100%}
     </div>
     <div class="orbit">
       <div class="ring">
-        <span class="chip" style="top:-14px;left:50%;transform:translateX(-50%)">LabVIEW</span>
-        <span class="chip" style="bottom:-14px;left:50%;transform:translateX(-50%)">ROS</span>
-        <span class="chip" style="top:50%;left:-30px">OpenCV</span>
-        <span class="chip" style="top:50%;right:-30px">Python</span>
+        <span class="chip" style="top:-16px;left:calc(50% - 38px)">LabVIEW</span>
+        <span class="chip" style="bottom:-16px;left:calc(50% - 24px)">ROS</span>
+        <span class="chip" style="top:calc(50% - 16px);left:-38px">OpenCV</span>
+        <span class="chip" style="top:calc(50% - 16px);right:-36px">Python</span>
       </div>
       <div class="ring r2">
-        <span class="chip" style="top:10%;left:5%">YOLO</span>
-        <span class="chip" style="bottom:10%;right:0">DAQ</span>
+        <span class="chip" style="top:4%;left:4%">YOLO</span>
+        <span class="chip" style="bottom:4%;right:4%">DAQ</span>
       </div>
       <div class="core"><span class="grad">KS</span></div>
     </div>
@@ -386,7 +416,7 @@ nav ul a.active::after{width:100%}
 <div class="marquee" aria-hidden="true"><div class="marquee-track"><span>LabVIEW</span><span>Python</span><span>Queued Message Handler</span><span>DQMH</span><span>JKI State Machine</span><span>SCPI / VISA</span><span>Modbus</span><span>UDP / TCP</span><span>ROS</span><span>Gazebo</span><span>OpenCV</span><span>YOLO</span><span>DeepSORT</span><span>TensorFlow</span><span>MediaPipe</span><span>ATE</span><span>DAQ</span><span>CAN Bus</span><span>HART</span><span>GPIB</span><span>LabVIEW</span><span>Python</span><span>Queued Message Handler</span><span>DQMH</span><span>JKI State Machine</span><span>SCPI / VISA</span><span>Modbus</span><span>UDP / TCP</span><span>ROS</span><span>Gazebo</span><span>OpenCV</span><span>YOLO</span><span>DeepSORT</span><span>TensorFlow</span><span>MediaPipe</span><span>ATE</span><span>DAQ</span><span>CAN Bus</span><span>HART</span><span>GPIB</span></div></div>
 
 <!-- STATS -->
-<section style="padding-top:0">
+<section style="padding-top:3rem;padding-bottom:2rem">
   <div class="wrap stats">
     <div class="stat glass reveal"><div class="num grad" data-yrs data-count="5" data-suffix="+">0</div><div class="lbl">Years Experience</div></div>
     <div class="stat glass reveal"><div class="num grad" data-count="7" data-suffix="+">0</div><div class="lbl">Industrial Projects Delivered</div></div>
