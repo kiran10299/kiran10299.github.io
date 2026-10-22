@@ -504,16 +504,50 @@ h1,h2,h3,h4,p,li,.tag{overflow-wrap:anywhere}</style>
       </div>
     </div>
 
+    <!-- Flagship Open-Source Tool Banner: OmniComm Studio -->
+    <div class="demo-card glass reveal" style="margin-bottom:1.5rem;border:1px solid rgba(34,211,238,.35);background:linear-gradient(135deg,rgba(15,23,42,.92),rgba(8,47,73,.45))">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;flex-wrap:wrap;gap:.6rem">
+        <span class="badge" style="margin:0;background:rgba(34,211,238,.15);color:#22d3ee;border-color:rgba(34,211,238,.4)">
+          <i class="fas fa-satellite-dish"></i> NEW OPEN-SOURCE FLAGSHIP &middot; OMNICOMM STUDIO v1.0
+        </span>
+        <span class="iso-badge zone-a">9 PROTOCOLS + VISION STREAMING</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:1.5rem;flex-wrap:wrap">
+        <div style="flex:1;min-width:280px">
+          <h3 style="font-family:'Space Grotesk';font-size:1.4rem;margin-bottom:.45rem">Universal Device, Fieldbus &amp; Camera Communicator</h3>
+          <p style="font-size:0.9rem;color:var(--muted);margin-bottom:.85rem;line-height:1.55">
+            All-in-one open-source hardware engineering console &amp; Python SDK supporting <b>SCPI/VISA</b>, <b>RS-232/UART</b>, <b>Modbus RTU (RS-485)</b>, <b>Modbus TCP</b>, <b>TCP/IP</b>, <b>UDP</b>, <b>Telnet</b>, <b>CAN Bus 2.0A/B</b>, and <b>USB / DirectShow / TCP Camera</b> frame inspection &mdash; complete with direct browser WebSerial/WebRTC hardware access, live CRC-16 calculator, register map, and instant Read / Write / Query execution.
+          </p>
+          <div class="tags" style="margin-bottom:.2rem">
+            <span class="tag v">SCPI / VISA</span>
+            <span class="tag v">RS-232 / RS-485</span>
+            <span class="tag v">Modbus RTU &amp; TCP</span>
+            <span class="tag v">CAN Bus 2.0A/B</span>
+            <span class="tag">TCP / UDP / Telnet</span>
+            <span class="tag v">USB &amp; TCP Camera Vision</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.65rem;min-width:230px">
+          <a href="omnicomm.html" class="btn btn-primary" style="justify-content:center;font-size:0.9rem;padding:.7rem 1.2rem">
+            <i class="fas fa-bolt"></i> Launch OmniComm Studio
+          </a>
+          <a href="https://github.com/kiran10299/Universal-Device-Communicator" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="justify-content:center;font-size:0.85rem;padding:.55rem 1.1rem">
+            <i class="fab fa-github"></i> View Python SDK &amp; Source
+          </a>
+        </div>
+      </div>
+    </div>
+
     <div class="demo-grid">
       <!-- Demo 1: EdgeVibe-Pro Live DSP Canvas -->
       <div class="demo-card glass reveal">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.8rem;flex-wrap:wrap;gap:.5rem">
-          <span class="badge" style="margin:0"><i class="fas fa-wave-square"></i> EdgeVibe-Pro &middot; DSP &amp; ISO 10816</span>
+          <span class="badge" style="margin:0"><i class="fas fa-wave-square"></i> EdgeVibe-Pro &middot; Predictive DSP</span>
           <span id="demoIsoBadge" class="iso-badge zone-a">ZONE A &middot; OPTIMAL</span>
         </div>
         <h3 style="font-family:'Space Grotesk';font-size:1.25rem;margin-bottom:.5rem">Live Vibration &amp; FFT Spectral Monitor</h3>
         <p style="font-size:0.88rem;color:var(--muted);margin-bottom:1rem">
-          Simulated 1000 Hz 4-channel edge telemetry. Toggle machine operating states to observe impulsive bearing shockwaves, Kurtosis spikes, and ISO alarm interlocks:
+          Simulated 1000 Hz 4-channel edge telemetry. Toggle machine operating states to observe impulsive bearing shockwaves, Kurtosis spikes, and automated safety trip interlocks:
         </p>
 
         <!-- Interactive State Toggles -->
@@ -522,7 +556,7 @@ h1,h2,h3,h4,p,li,.tag{overflow-wrap:anywhere}</style>
             <i class="fas fa-circle-check"></i> Normal (Zone A)
           </button>
           <button id="btnFault" class="btn-demo" onclick="setVibeState('fault')">
-            <i class="fas fa-triangle-exclamation"></i> Bearing Fault (Zone D Trip)
+            <i class="fas fa-triangle-exclamation"></i> Bearing Fault (Safety Trip)
           </button>
         </div>
 
@@ -823,8 +857,9 @@ const clientProjects=[
  {client:"Ducom Aerospace",icon:"fa-robot",title:"Robotic Mapping & Live Video",desc:"ROS-based land robot platform with SLAM mapping of robot movement and live video visualisation.",hw:["ROS","Gazebo","RViz","SLAM"]}
 ];
 const fallbackRepos=[
+  {name:"Universal-Device-Communicator",html_url:"https://github.com/kiran10299/Universal-Device-Communicator",description:"OmniComm Studio — Universal Hardware, Fieldbus & Vision Communicator (SCPI/VISA, RS-232/485, Modbus RTU/TCP, TCP, UDP, Telnet, CAN Bus 2.0A/B & USB/DirectShow/TCP Cameras).",topics:["scpi","modbus","can-bus","serial","rs485","tcp-udp","computer-vision"]},
   {name:"OpenATE-Engine",html_url:"https://github.com/kiran10299/OpenATE-Engine",description:"Enterprise Automated Test Equipment (ATE) Execution Engine with SCPI/VISA HAL, Test Sequencing, Limit Checking, and Automated HTML/CSV Reporting.",topics:["ate","test-automation","scpi","visa","hardware-in-the-loop","python","labview"]},
-  {name:"EdgeVibe-Pro",html_url:"https://github.com/kiran10299/EdgeVibe-Pro",description:"Industrial Vibration Analysis & Edge DAQ System complying with ISO 10816, featuring zero-copy Ring Buffers, FFT DSP, and Modbus TCP SCADA gateway.",topics:["vibration-analysis","daq","iso-10816","predictive-maintenance","modbus","dsp","scada"]},
+  {name:"EdgeVibe-Pro",html_url:"https://github.com/kiran10299/EdgeVibe-Pro",description:"Industrial Vibration Analysis & Edge DAQ System featuring zero-copy Ring Buffers, FFT DSP, and Modbus TCP SCADA gateway.",topics:["vibration-analysis","daq","predictive-maintenance","modbus","dsp","scada"]},
   {name:"2D-LiDAR-SLAM-Simulator",html_url:"https://github.com/kiran10299/2D-LiDAR-SLAM-Simulator",description:"2D Mobile Robot & LiDAR SLAM simulator with real-time Occupancy Grid Mapping and Autonomous Exploration.",topics:["robotics","slam","lidar","pygame"]},
   {name:"Smart-Posture-Drowsiness-Monitor",html_url:"https://github.com/kiran10299/Smart-Posture-Drowsiness-Monitor",description:"Computer Vision ergonomic assistant with Eye Aspect Ratio (EAR) drowsiness detection and 3D Head Pose tracking.",topics:["computer-vision","mediapipe","opencv","ergonomics"]},
   {name:"AI-Trajectory-Speed-Estimator",html_url:"https://github.com/kiran10299/AI-Trajectory-Speed-Estimator",description:"Multi-Object Centroid Tracking, Trajectory Trails, Calibrated Speed Traps, and Traffic Heatmaps in OpenCV.",topics:["computer-vision","opencv","object-tracking","speed-estimation"]},
@@ -850,7 +885,7 @@ let currentCategory = 'all';
 function getRepoCategory(r) {
   const name = (r.name || '').toLowerCase();
   const top = (r.topics || []).join(' ').toLowerCase();
-  if (name.includes('ate') || name.includes('edgevibe') || name.includes('labview') || top.includes('ate') || top.includes('daq') || top.includes('vibration') || top.includes('labview')) return 'test';
+  if (name.includes('communicator') || name.includes('ate') || name.includes('edgevibe') || name.includes('labview') || top.includes('ate') || top.includes('daq') || top.includes('vibration') || top.includes('labview') || top.includes('scpi') || top.includes('modbus')) return 'test';
   if (name.includes('slam') || top.includes('robotics') || top.includes('slam') || top.includes('ros')) return 'robotics';
   if (name.includes('posture') || name.includes('speed') || name.includes('gesture') || top.includes('vision') || top.includes('opencv') || top.includes('mediapipe')) return 'vision';
   return 'tools';
