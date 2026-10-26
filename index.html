@@ -838,7 +838,7 @@ h1,h2,h3,h4,p,li,.tag{overflow-wrap:anywhere}</style>
 <footer>
   <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;">
     <span>Designed &amp; built by Kiran Shivakumar · © <span id="yr"></span></span>
-    <img src="https://komarev.com/ghpvc/?username=kiran10299&color=22d3ee&style=flat-square&label=PROFILE+VIEWS" alt="Profile Views" style="vertical-align:middle;border-radius:4px;" />
+    <img id="profileViewsBadge" src="https://komarev.com/ghpvc/?username=kiran10299&color=22d3ee&style=flat-square&label=PROFILE+VIEWS" alt="Profile Views" title="Profile Views" style="vertical-align:middle;border-radius:4px;cursor:pointer;user-select:none" />
   </div>
 </footer>
 
@@ -1259,6 +1259,494 @@ size();draw();renderClients();observe();attachGlow();loadRepos();initVibeCanvas(
     var g=e.target.closest&&e.target.closest('.glass');if(g){var r=g.getBoundingClientRect();g.style.setProperty('--mx',(e.clientX-r.left)+'px');g.style.setProperty('--my',(e.clientY-r.top)+'px')}},{passive:true});
   var links=[].slice.call(document.querySelectorAll('nav ul a[href^="#"]')),secs=links.map(function(a){return document.querySelector(a.getAttribute('href'))});
   if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){var i=secs.indexOf(en.target);links.forEach(function(l,j){l.classList.toggle('active',j===i)})}})},{rootMargin:'-45% 0px -50% 0px'});secs.forEach(function(s){s&&io.observe(s)})}
+})();
+</script>
+
+<!-- OWNER VISITOR LOG & TELEMETRY DASHBOARD MODAL (Hidden — Open via Ctrl+Shift+L, ?owner=kiran, or 3x click on Profile Views badge) -->
+<div class="modal-backdrop" id="ownerLogModal" onclick="if(event.target===this)closeOwnerDashboard()" style="z-index:9999">
+  <div class="modal-box" style="max-width:1040px;width:95vw;max-height:90vh;overflow-y:auto;padding:1.5rem">
+    <button class="modal-close" onclick="closeOwnerDashboard()"><i class="fas fa-xmark"></i></button>
+
+    <!-- PIN Gate View -->
+    <div id="ownerPinGate" style="text-align:center;padding:2rem 1rem">
+      <div style="width:52px;height:52px;border-radius:14px;background:rgba(34,211,238,.14);color:var(--c1);display:grid;place-items:center;font-size:1.4rem;margin:0 auto 1rem">
+        <i class="fas fa-user-shield"></i>
+      </div>
+      <h3 style="font-family:'Space Grotesk';font-size:1.4rem;margin-bottom:.4rem">Owner Visitor Telemetry &amp; Log Console</h3>
+      <p style="color:var(--muted);font-size:.88rem;max-width:440px;margin:0 auto 1.2rem">
+        Enter your Owner PIN to inspect global portfolio visitor logs, locations, ISP/network details, referral sources, and webhook alerts.
+      </p>
+      <div style="display:flex;justify-content:center;gap:.6rem;max-width:320px;margin:0 auto .8rem">
+        <input type="password" id="ownerPinInput" placeholder="Enter PIN (default: 1029)" style="background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:.65rem .9rem;font-family:'JetBrains Mono';font-size:.95rem;color:var(--text);text-align:center;width:100%;outline:none" onkeydown="if(event.key==='Enter')verifyOwnerPin()">
+        <button class="btn btn-primary" onclick="verifyOwnerPin()" style="padding:.65rem 1.2rem">Unlock</button>
+      </div>
+      <label style="font-size:.78rem;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:.4rem">
+        <input type="checkbox" id="ownerRememberChk" checked> Remember me as Owner on this browser
+      </label>
+      <div id="ownerPinErr" style="color:#f87171;font-size:.8rem;margin-top:.5rem;display:none">Incorrect PIN. Default owner PIN is 1029.</div>
+    </div>
+
+    <!-- Unlocked Owner Analytics Console -->
+    <div id="ownerConsoleContent" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-bottom:1px solid var(--border);padding-bottom:1rem;margin-bottom:1.2rem">
+        <div style="display:flex;align-items:center;gap:.8rem">
+          <div style="width:42px;height:42px;border-radius:11px;background:rgba(34,211,238,.15);color:var(--c1);display:grid;place-items:center;font-size:1.2rem">
+            <i class="fas fa-satellite-dish"></i>
+          </div>
+          <div>
+            <h3 style="font-family:'Space Grotesk';font-size:1.3rem;margin:0">Portfolio Visitor Log &amp; Webhook Telemetry</h3>
+            <span style="font-family:'JetBrains Mono';font-size:.76rem;color:var(--muted)" id="ownerSyncStatus">Cloud Telemetry Stream: Connected &middot; Real-time Visitor Tracking Active</span>
+          </div>
+        </div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <button class="btn btn-ghost" onclick="syncCloudVisitorLogs(true)" style="font-size:.78rem;padding:.42rem .8rem"><i class="fas fa-rotate"></i> Refresh Cloud Log</button>
+          <button class="btn btn-ghost" onclick="triggerTestVisitorAlert()" style="font-size:.78rem;padding:.42rem .8rem"><i class="fas fa-paper-plane"></i> Send Test Visit &amp; Webhook</button>
+          <button class="btn btn-primary" onclick="exportVisitorLogsCsv()" style="font-size:.78rem;padding:.42rem .85rem"><i class="fas fa-file-csv"></i> Export CSV</button>
+        </div>
+      </div>
+
+      <!-- KPI Summary Cards -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:.75rem;margin-bottom:1.2rem;font-family:'JetBrains Mono'">
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:11px;padding:.8rem 1rem">
+          <span style="font-size:.68rem;color:var(--muted);display:block">LOGGED VISITS</span>
+          <b id="vStatTotal" style="font-size:1.45rem;color:var(--c1)">0</b>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:11px;padding:.8rem 1rem">
+          <span style="font-size:.68rem;color:var(--muted);display:block">UNIQUE IPs / NETWORKS</span>
+          <b id="vStatUnique" style="font-size:1.45rem;color:#a78bfa">0</b>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:11px;padding:.8rem 1rem">
+          <span style="font-size:.68rem;color:var(--muted);display:block">LINKEDIN / GITHUB REFS</span>
+          <b id="vStatSocial" style="font-size:1.45rem;color:#34d399">0</b>
+        </div>
+        <div style="background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:11px;padding:.8rem 1rem">
+          <span style="font-size:.68rem;color:var(--muted);display:block">RESUME / DEMO CLICKS</span>
+          <b id="vStatActions" style="font-size:1.45rem;color:#fbbf24">0</b>
+        </div>
+      </div>
+
+      <!-- Instant Webhook & Push Notification Configuration -->
+      <div style="background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1.2rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;margin-bottom:.65rem">
+          <div style="font-family:'Space Grotesk';font-weight:700;font-size:.95rem;color:var(--c1)">
+            <i class="fas fa-bell"></i> Instant Webhook &amp; Mobile/Browser Push Notifications
+          </div>
+          <div style="display:flex;gap:.8rem;align-items:center;flex-wrap:wrap">
+            <label style="font-size:.76rem;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:.35rem">
+              <input type="checkbox" id="ignoreOwnerVisitsChk" onchange="toggleIgnoreOwnerVisits(this.checked)"> Ignore visits from my own browser
+            </label>
+            <a href="https://ntfy.sh/kiran_shivakumar_portfolio_alerts_99a7" target="_blank" rel="noopener noreferrer" style="font-size:.76rem;color:#38bdf8;font-family:'JetBrains Mono';text-decoration:underline">
+              <i class="fas fa-mobile-screen-button"></i> Open Live Push Feed (ntfy.sh)
+            </a>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto;gap:.6rem;align-items:center">
+          <input type="text" id="customWebhookInput" placeholder="Optional: Paste Discord / Slack / Make / Telegram Webhook URL for instant alerts..." style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.55rem .8rem;font-family:'JetBrains Mono';font-size:.78rem;color:var(--text);width:100%;outline:none">
+          <button class="btn btn-ghost" onclick="saveCustomWebhookUrl()" style="font-size:.78rem;padding:.52rem .95rem;white-space:nowrap"><i class="fas fa-floppy-disk"></i> Save Webhook</button>
+        </div>
+        <div style="font-size:.73rem;color:var(--muted);margin-top:.45rem;font-family:'JetBrains Mono'">
+          <i class="fas fa-circle-info" style="color:var(--c1)"></i> Every visitor is automatically logged to your global cloud channel (<code>ntfy.sh/kiran_shivakumar_portfolio_log_99a7</code>). Subscribe to <b>kiran_shivakumar_portfolio_alerts_99a7</b> in the free <b>ntfy</b> phone app or paste a Discord/Slack webhook above for instant phone alerts!
+        </div>
+      </div>
+
+      <!-- Filter & Search Bar -->
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.8rem">
+        <input type="text" id="visitorSearchInput" oninput="renderVisitorLogTable()" placeholder="Search by City, Country, ISP/Company, Referrer (LinkedIn/GitHub), IP, or Action..." style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:.5rem .8rem;font-family:'JetBrains Mono';font-size:.78rem;color:var(--text);flex:1;min-width:240px;outline:none">
+        <span style="font-family:'JetBrains Mono';font-size:.75rem;color:var(--muted)">Shortcut: <b>Ctrl+Shift+L</b> or <b>?owner=kiran</b></span>
+      </div>
+
+      <!-- Visitor Log Table -->
+      <div style="overflow-x:auto;border:1px solid var(--border);border-radius:11px;max-height:380px;overflow-y:auto">
+        <table style="width:100%;border-collapse:collapse;font-family:'JetBrains Mono';font-size:.76rem">
+          <thead>
+            <tr style="background:rgba(15,23,42,.95);color:var(--c1);text-align:left;position:sticky;top:0">
+              <th style="padding:.65rem .75rem">TIME (IST)</th>
+              <th style="padding:.65rem .75rem">LOCATION (CITY / COUNTRY)</th>
+              <th style="padding:.65rem .75rem">ISP / ORG / NETWORK</th>
+              <th style="padding:.65rem .75rem">SOURCE / REFERRER</th>
+              <th style="padding:.65rem .75rem">DEVICE &amp; OS</th>
+              <th style="padding:.65rem .75rem">EVENT / ACTION</th>
+            </tr>
+          </thead>
+          <tbody id="visitorLogTableBody">
+            <tr><td colspan="6" style="padding:1.5rem;text-align:center;color:var(--muted)">Loading global visitor telemetry...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================================
+   PORTFOLIO VISITOR TELEMETRY, GLOBAL CLOUD LOG & WEBHOOK NOTIFICATION ENGINE
+   ============================================================================ */
+(function(){
+  const CLOUD_LOG_TOPIC = 'kiran_shivakumar_portfolio_log_99a7';
+  const CLOUD_ALERT_TOPIC = 'kiran_shivakumar_portfolio_alerts_99a7';
+  const STORAGE_LOGS_KEY = 'ks_visitor_logs_v1';
+  const STORAGE_AUTH_KEY = 'ks_owner_unlocked_v1';
+  const STORAGE_IGNORE_KEY = 'ks_ignore_owner_visits_v1';
+  const STORAGE_WEBHOOK_KEY = 'ks_custom_webhook_v1';
+  const OWNER_PIN = '1029';
+
+  let visitorLogs = [];
+  let currentVisitorMeta = null;
+
+  function loadStoredLogs() {
+    try {
+      const raw = localStorage.getItem(STORAGE_LOGS_KEY);
+      if (raw) visitorLogs = JSON.parse(raw);
+    } catch (e) { visitorLogs = []; }
+  }
+
+  function saveStoredLogs() {
+    try {
+      localStorage.setItem(STORAGE_LOGS_KEY, JSON.stringify(visitorLogs.slice(0, 500)));
+    } catch (e) {}
+  }
+
+  function parseDeviceAndBrowser() {
+    const ua = navigator.userAgent || '';
+    let os = 'Desktop OS';
+    if (/Windows NT 10/i.test(ua)) os = 'Windows 10/11';
+    else if (/Windows/i.test(ua)) os = 'Windows';
+    else if (/Android/i.test(ua)) os = 'Android Mobile';
+    else if (/iPhone|iPad|iPod/i.test(ua)) os = 'iOS (iPhone/iPad)';
+    else if (/Mac OS X/i.test(ua)) os = 'macOS';
+    else if (/Linux/i.test(ua)) os = 'Linux';
+
+    let browser = 'Browser';
+    if (/Edg\//i.test(ua)) browser = 'Edge';
+    else if (/Chrome\//i.test(ua)) browser = 'Chrome';
+    else if (/Firefox\//i.test(ua)) browser = 'Firefox';
+    else if (/Safari\//i.test(ua)) browser = 'Safari';
+
+    return `${os} · ${browser} (${window.screen.width}x${window.screen.height})`;
+  }
+
+  function parseReferrerSource() {
+    const params = new URLSearchParams(window.location.search);
+    const refParam = params.get('ref') || params.get('utm_source') || params.get('source');
+    const ref = document.referrer || '';
+    if (refParam) return `Tag: ${refParam}`;
+    if (!ref) return 'Direct / Resume PDF / Bookmark';
+    if (/linkedin\.com|lnkd\.in/i.test(ref)) return 'LinkedIn';
+    if (/github\.com/i.test(ref)) return 'GitHub';
+    if (/google\./i.test(ref)) return 'Google Search';
+    if (/bing\./i.test(ref)) return 'Bing Search';
+    if (/t\.co|twitter\.com|x\.com/i.test(ref)) return 'X / Twitter';
+    if (/whatsapp|wa\.me/i.test(ref)) return 'WhatsApp';
+    try {
+      return new URL(ref).hostname;
+    } catch (e) {
+      return ref.slice(0, 45);
+    }
+  }
+
+  async function fetchVisitorGeo() {
+    if (currentVisitorMeta) return currentVisitorMeta;
+    const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown TZ');
+    let geo = {
+      ip: 'Anonymous',
+      city: tz.split('/').pop().replace(/_/g, ' '),
+      region: '',
+      country: tz.split('/')[0] || 'Global',
+      org: 'Standard ISP'
+    };
+    try {
+      const r = await fetch('https://ipwho.is/');
+      if (r.ok) {
+        const j = await r.json();
+        if (j && j.success !== false) {
+          geo = {
+            ip: j.ip || geo.ip,
+            city: j.city || geo.city,
+            region: j.region || '',
+            country: j.country || geo.country,
+            org: (j.connection && (j.connection.org || j.connection.isp)) || j.org || geo.org
+          };
+          currentVisitorMeta = geo;
+          return geo;
+        }
+      }
+    } catch (e) {}
+    try {
+      const r2 = await fetch('https://ipapi.co/json/');
+      if (r2.ok) {
+        const j2 = await r2.json();
+        geo = {
+          ip: j2.ip || geo.ip,
+          city: j2.city || geo.city,
+          region: j2.region || '',
+          country: j2.country_name || geo.country,
+          org: j2.org || geo.org
+        };
+      }
+    } catch (e) {}
+    currentVisitorMeta = geo;
+    return geo;
+  }
+
+  function formatIstTime(tsMs) {
+    try {
+      return new Date(tsMs).toLocaleString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        day: '2-digit', month: 'short', year: 'numeric',
+        hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+      });
+    } catch (e) {
+      return new Date(tsMs).toLocaleString();
+    }
+  }
+
+  function mergeLogEntry(entry) {
+    if (!entry || !entry.id) return;
+    if (!visitorLogs.some(x => x.id === entry.id)) {
+      visitorLogs.unshift(entry);
+      visitorLogs.sort((a, b) => (b.ts || 0) - (a.ts || 0));
+      saveStoredLogs();
+    }
+  }
+
+  async function recordPortfolioEvent(eventName, forceRecord) {
+    try {
+      const ignoreSelf = localStorage.getItem(STORAGE_IGNORE_KEY) === '1';
+      if (ignoreSelf && !forceRecord) return;
+
+      // Avoid duplicate page_view spam on same session reload within 10 mins
+      const sessionKey = 'ks_logged_' + eventName.replace(/\W+/g, '_');
+      const lastLogged = parseInt(sessionStorage.getItem(sessionKey) || '0', 10);
+      if (!forceRecord && Date.now() - lastLogged < 600000) return;
+      sessionStorage.setItem(sessionKey, String(Date.now()));
+
+      const geo = await fetchVisitorGeo();
+      const entry = {
+        id: 'v_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7),
+        ts: Date.now(),
+        timeStr: formatIstTime(Date.now()),
+        location: [geo.city, geo.region, geo.country].filter(Boolean).join(', '),
+        org: geo.org || 'ISP',
+        ip: geo.ip || '',
+        referrer: parseReferrerSource(),
+        device: parseDeviceAndBrowser(),
+        action: eventName
+      };
+
+      mergeLogEntry(entry);
+
+      // 1. Push structured JSON record to Global Cloud Log Topic (for Owner Console across devices)
+      fetch('https://ntfy.sh/' + CLOUD_LOG_TOPIC, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+        body: JSON.stringify(entry)
+      }).catch(() => {});
+
+      // 2. Push human-readable alert to Instant Alert Channel
+      const alertMsg = `📍 ${entry.location}\n🏢 ISP/Org: ${entry.org} (${entry.ip})\n🔗 Source: ${entry.referrer}\n💻 Device: ${entry.device}\n⚡ Action: ${entry.action}\n🕒 Time: ${entry.timeStr} IST`;
+      fetch('https://ntfy.sh/' + CLOUD_ALERT_TOPIC, {
+        method: 'POST',
+        headers: {
+          'Title': `Portfolio Visit: ${entry.location} (${entry.referrer})`,
+          'Tags': 'eyes,satellite'
+        },
+        body: alertMsg
+      }).catch(() => {});
+
+      // 3. If custom Discord / Slack Webhook is saved, fire it
+      const customHook = localStorage.getItem(STORAGE_WEBHOOK_KEY) || '';
+      if (customHook && customHook.startsWith('http')) {
+        fetch(customHook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            username: 'Kiran Portfolio Telemetry',
+            content: `🔔 **New Portfolio Activity (${entry.action})**\n> **Location:** ${entry.location}\n> **Network / ISP:** ${entry.org} (\`${entry.ip}\`)\n> **Referral Source:** ${entry.referrer}\n> **Device:** ${entry.device}\n> **Time (IST):** ${entry.timeStr}`,
+            text: `New Portfolio Activity (${entry.action}) from ${entry.location} [${entry.org}] via ${entry.referrer}`
+          })
+        }).catch(() => {});
+      }
+    } catch (e) {}
+  }
+
+  window.syncCloudVisitorLogs = async function(showSpinner) {
+    const statusEl = document.getElementById('ownerSyncStatus');
+    if (statusEl && showSpinner) statusEl.textContent = 'Syncing global cloud visitor log...';
+    try {
+      const r = await fetch(`https://ntfy.sh/${CLOUD_LOG_TOPIC}/json?poll=1&since=all`);
+      if (r.ok) {
+        const text = await r.text();
+        const lines = text.split('\n').filter(Boolean);
+        lines.forEach(line => {
+          try {
+            const msg = JSON.parse(line);
+            if (msg && msg.event === 'message' && msg.message) {
+              const parsed = JSON.parse(msg.message);
+              if (parsed && parsed.id) mergeLogEntry(parsed);
+            }
+          } catch (e) {}
+        });
+      }
+      if (statusEl) statusEl.textContent = `Cloud Telemetry Synced · ${visitorLogs.length} Total Events Recorded`;
+    } catch (e) {
+      if (statusEl) statusEl.textContent = `Showing Local Cache (${visitorLogs.length} events)`;
+    }
+    renderVisitorLogTable();
+  };
+
+  window.renderVisitorLogTable = function() {
+    const tb = document.getElementById('visitorLogTableBody');
+    if (!tb) return;
+    const q = (document.getElementById('visitorSearchInput')?.value || '').toLowerCase().trim();
+
+    const filtered = visitorLogs.filter(v => {
+      if (!q) return true;
+      return [v.location, v.org, v.ip, v.referrer, v.device, v.action, v.timeStr]
+        .join(' ').toLowerCase().includes(q);
+    });
+
+    // Update KPI counters
+    const uniqueIps = new Set(visitorLogs.map(v => v.ip || v.location)).size;
+    const socialRefs = visitorLogs.filter(v => /linkedin|github|google/i.test(v.referrer || '')).length;
+    const highActions = visitorLogs.filter(v => v.action && v.action !== 'Viewed Portfolio').length;
+
+    const elTotal = document.getElementById('vStatTotal');
+    const elUnique = document.getElementById('vStatUnique');
+    const elSocial = document.getElementById('vStatSocial');
+    const elActions = document.getElementById('vStatActions');
+    if (elTotal) elTotal.textContent = visitorLogs.length;
+    if (elUnique) elUnique.textContent = uniqueIps;
+    if (elSocial) elSocial.textContent = socialRefs;
+    if (elActions) elActions.textContent = highActions;
+
+    if (!filtered.length) {
+      tb.innerHTML = '<tr><td colspan="6" style="padding:1.5rem;text-align:center;color:var(--muted)">No visitor records match your filter yet. Click "Send Test Visit & Webhook" above to verify!</td></tr>';
+      return;
+    }
+
+    const escHtml = s => String(s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    tb.innerHTML = filtered.map(v => `
+      <tr style="border-bottom:1px solid rgba(255,255,255,.05)">
+        <td style="padding:.55rem .75rem;color:var(--muted);white-space:nowrap">${escHtml(v.timeStr || formatIstTime(v.ts))}</td>
+        <td style="padding:.55rem .75rem;color:#e2e8f0;font-weight:600">${escHtml(v.location)}</td>
+        <td style="padding:.55rem .75rem;color:#7dd3fc">${escHtml(v.org)} <small style="color:var(--muted)">(${escHtml(v.ip)})</small></td>
+        <td style="padding:.55rem .75rem"><span style="background:rgba(167,139,250,.14);color:#c4b5fd;padding:.15rem .45rem;border-radius:6px;border:1px solid rgba(167,139,250,.3)">${escHtml(v.referrer)}</span></td>
+        <td style="padding:.55rem .75rem;color:var(--muted)">${escHtml(v.device)}</td>
+        <td style="padding:.55rem .75rem;color:#34d399;font-weight:600">${escHtml(v.action)}</td>
+      </tr>
+    `).join('');
+  };
+
+  window.openOwnerDashboard = function() {
+    const modal = document.getElementById('ownerLogModal');
+    if (!modal) return;
+    modal.classList.add('open');
+    const unlocked = localStorage.getItem(STORAGE_AUTH_KEY) === '1';
+    document.getElementById('ownerPinGate').style.display = unlocked ? 'none' : 'block';
+    document.getElementById('ownerConsoleContent').style.display = unlocked ? 'block' : 'none';
+    document.getElementById('ignoreOwnerVisitsChk').checked = localStorage.getItem(STORAGE_IGNORE_KEY) === '1';
+    document.getElementById('customWebhookInput').value = localStorage.getItem(STORAGE_WEBHOOK_KEY) || '';
+    if (unlocked) {
+      renderVisitorLogTable();
+      syncCloudVisitorLogs(true);
+    } else {
+      setTimeout(() => document.getElementById('ownerPinInput')?.focus(), 100);
+    }
+  };
+
+  window.closeOwnerDashboard = function() {
+    document.getElementById('ownerLogModal')?.classList.remove('open');
+  };
+
+  window.verifyOwnerPin = function() {
+    const val = (document.getElementById('ownerPinInput')?.value || '').trim();
+    if (val === OWNER_PIN) {
+      if (document.getElementById('ownerRememberChk')?.checked) {
+        localStorage.setItem(STORAGE_AUTH_KEY, '1');
+      }
+      document.getElementById('ownerPinErr').style.display = 'none';
+      document.getElementById('ownerPinGate').style.display = 'none';
+      document.getElementById('ownerConsoleContent').style.display = 'block';
+      renderVisitorLogTable();
+      syncCloudVisitorLogs(true);
+    } else {
+      document.getElementById('ownerPinErr').style.display = 'block';
+    }
+  };
+
+  window.toggleIgnoreOwnerVisits = function(checked) {
+    localStorage.setItem(STORAGE_IGNORE_KEY, checked ? '1' : '0');
+  };
+
+  window.saveCustomWebhookUrl = function() {
+    const val = (document.getElementById('customWebhookInput')?.value || '').trim();
+    localStorage.setItem(STORAGE_WEBHOOK_KEY, val);
+    const statusEl = document.getElementById('ownerSyncStatus');
+    if (statusEl) statusEl.textContent = val ? 'Custom Webhook URL Saved! Click "Send Test Visit & Webhook" to test.' : 'Custom Webhook cleared (Cloud Push still active).';
+  };
+
+  window.triggerTestVisitorAlert = async function() {
+    await recordPortfolioEvent('Owner Test Ping & Webhook Check', true);
+    setTimeout(() => syncCloudVisitorLogs(false), 600);
+  };
+
+  window.exportVisitorLogsCsv = function() {
+    const rows = ['Timestamp_IST,Location,ISP_Organization,IP,Referrer_Source,Device_OS,Action'];
+    visitorLogs.forEach(v => {
+      rows.push([v.timeStr, v.location, v.org, v.ip, v.referrer, v.device, v.action]
+        .map(x => `"${String(x || '').replace(/"/g, '""')}"`).join(','));
+    });
+    const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'kiran_portfolio_visitor_log.csv';
+    a.click();
+  };
+
+  // 1. Secret Keyboard Shortcut: Ctrl + Shift + L
+  window.addEventListener('keydown', function(e) {
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'L' || e.key === 'l')) {
+      e.preventDefault();
+      openOwnerDashboard();
+    }
+  });
+
+  // 2. Secret Triple-Click on Footer "PROFILE VIEWS" Badge
+  let badgeClicks = 0, badgeTimer = null;
+  const badgeEl = document.getElementById('profileViewsBadge');
+  if (badgeEl) {
+    badgeEl.addEventListener('click', function() {
+      badgeClicks++;
+      clearTimeout(badgeTimer);
+      if (badgeClicks >= 3) {
+        badgeClicks = 0;
+        openOwnerDashboard();
+      } else {
+        badgeTimer = setTimeout(() => { badgeClicks = 0; }, 900);
+      }
+    });
+  }
+
+  // 3. Secret URL Query Parameter: ?owner=kiran or ?logs=1
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('owner') === 'kiran' || urlParams.get('logs') === '1') {
+    setTimeout(openOwnerDashboard, 400);
+  }
+
+  // Track High-Value Clicks (Resume PDF, OmniComm Studio, LinkedIn, Email)
+  document.querySelectorAll('a[href*="RESUME"], a[href*="omnicomm"], a[href*="linkedin.com"], a[href^="mailto:"]').forEach(a => {
+    a.addEventListener('click', function() {
+      const href = a.getAttribute('href') || '';
+      if (href.includes('RESUME')) recordPortfolioEvent('Downloaded / Viewed Resume PDF', false);
+      else if (href.includes('omnicomm')) recordPortfolioEvent('Launched OmniComm Studio', false);
+      else if (href.includes('linkedin')) recordPortfolioEvent('Clicked LinkedIn Profile', false);
+      else if (href.includes('mailto:')) recordPortfolioEvent('Clicked Email Contact', false);
+    });
+  });
+
+  // Initialize & Log Visit
+  loadStoredLogs();
+  setTimeout(() => recordPortfolioEvent('Viewed Portfolio', false), 800);
 })();
 </script>
 </body>
